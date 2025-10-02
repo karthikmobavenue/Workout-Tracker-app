@@ -312,17 +312,33 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
       </Card>
 
       {/* Save Button */}
-      <div className="flex justify-center">
-        <Button 
-          onClick={saveWorkout}
-          disabled={saving}
-          size="lg"
-          className="bg-black hover:bg-gray-800 px-8"
-          data-testid="save-workout-btn"
-        >
-          <Save className="mr-2 h-4 w-4" />
-          {saving ? 'Saving...' : 'Save Workout'}
-        </Button>
+      <div className="flex justify-center mb-8">
+        <div className="relative">
+          <Button 
+            onClick={saveWorkout}
+            disabled={saving}
+            size="lg"
+            className="bg-gradient-to-r from-gray-800 to-black hover:from-black hover:to-gray-900 text-white px-12 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            data-testid="save-workout-btn"
+          >
+            {saving ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                Saving Workout...
+              </>
+            ) : (
+              <>
+                <Save className="mr-3 h-6 w-6" />
+                Complete Workout
+              </>
+            )}
+          </Button>
+          {selectedDate && selectedDate > new Date().toISOString().split('T')[0] && (
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-red-600 font-medium whitespace-nowrap">
+              ⚠️ Cannot save future workouts
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Exercise Progress Modal */}
