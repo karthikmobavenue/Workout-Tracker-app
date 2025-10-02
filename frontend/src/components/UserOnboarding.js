@@ -183,6 +183,29 @@ const UserOnboarding = ({ onUserCreated }) => {
               {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender}</p>}
             </div>
 
+            <div>
+              <Label htmlFor="rest_day">Preferred Rest Day</Label>
+              <Select 
+                value={formData.rest_day} 
+                onValueChange={(value) => handleInputChange('rest_day', value)}
+                disabled={loading}
+              >
+                <SelectTrigger data-testid="rest-day-select" className={errors.rest_day ? 'border-red-500' : ''}>
+                  <SelectValue placeholder="Choose your rest day" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Sunday</SelectItem>
+                  <SelectItem value="1">Monday</SelectItem>
+                  <SelectItem value="2">Tuesday</SelectItem>
+                  <SelectItem value="3">Wednesday</SelectItem>
+                  <SelectItem value="4">Thursday</SelectItem>
+                  <SelectItem value="5">Friday</SelectItem>
+                  <SelectItem value="6">Saturday</SelectItem>
+                </SelectContent>
+              </Select>
+              {errors.rest_day && <p className="text-red-500 text-sm mt-1">{errors.rest_day}</p>}
+            </div>
+
             {errors.submit && (
               <p className="text-red-500 text-sm text-center">{errors.submit}</p>
             )}
