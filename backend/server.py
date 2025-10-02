@@ -554,8 +554,16 @@ async def get_workout_for_date(user_id: str, date: str):
         raise HTTPException(status_code=400, detail="Program not started")
     
     try:
-        # Use the same date calculation as calendar - use current time for consistency
-        target_date = datetime.fromisoformat(f"{date}T12:00:00+00:00")  # Use noon to avoid timezone issues
+        # Parse requested date
+        requested_date = datetime.fromisoformat(f"{date}T00:00:00+00:00").date()
+        current_date = datetime.now(timezone.utc).date()
+        
+        # Calculate days difference from today
+        days_diff = (requested_date - current_date).days
+        
+        # Use the same calculation as calendar
+        target_date = datetime.now(timezone.utc) + timedelta(days=days_diff)
+        
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
     
