@@ -275,14 +275,35 @@ def get_current_week_and_phase(start_date: datetime):
     
     return week, phase
 
-def get_workout_for_day(start_date: datetime, target_date: datetime):
-    """Get the workout type and number for a specific date"""
+def get_workout_for_day(start_date: datetime, target_date: datetime, rest_day: int, user_id: str = None):
+    """Get the workout type and number for a specific date, accounting for rest days and missed workouts"""
     days_elapsed = (target_date - start_date).days
-    workout_cycle = days_elapsed % 6  # 6-day cycle: Push1, Pull1, Legs1, Push2, Pull2, Legs2
+    
+    # Calculate how many workout days have passed (excluding rest days)
+    workout_days_count = 0
+    current_day = start_date
+    
+    while current_day < target_date:
+        if current_day.weekday() != (rest_day - 1) % 7:  # Convert rest_day to weekday format
+            workout_days_count += 1
+        current_day += timedelta(days=1)
+    
+    # Check if today is a rest day
+    if target_date.weekday() == (rest_day - 1) % 7:
+        return ("rest", 0)
+    
+    # If we have user_id, check for missed workouts
+    if user_id:
+        # This would require checking completed sessions in the database
+        # For now, we'll use the simple rotation
+        pass
+    
+    # 6-workout cycle: Push1, Pull1, Legs1, Push2, Pull2, Legs2
+    workout_cycle = workout_days_count % 6
     
     workout_map = {
         0: ("push", 1),
-        1: ("pull", 1),
+        1: ("pull", 1), 
         2: ("legs", 1),
         3: ("push", 2),
         4: ("pull", 2),
@@ -290,6 +311,49 @@ def get_workout_for_day(start_date: datetime, target_date: datetime):
     }
     
     return workout_map[workout_cycle]
+
+async def get_current_workout_accounting_for_completion(user_id: str, target_date: datetime, start_date: datetime, rest_day: int):
+    """Get current workout accounting for missed/incomplete previous workouts"""
+    
+    # Get all completed workout sessions for this user
+    completed_sessions = await db.workout_sessions.find(
+        {"user_id": user_id, "completed": True}
+    ).sort("date", 1).to_list(None)
+    
+    # Calculate expected workout sequence from start date
+    expected_workouts = []
+    current_day = start_date
+    workout_sequence = ["push1", "pull1", "legs1", "push2", "pull2", "legs2"]
+    sequence_index = 0
+    
+    while current_day <= target_date:
+        # Skip rest days
+        if current_day.weekday() != (rest_day - 1) % 7:
+            expected_workouts.append({
+                "date": current_day,
+                "workout_type": workout_sequence[sequence_index % 6].replace("1", "").replace("2", ""),
+                "workout_number": int(workout_sequence[sequence_index % 6][-1]),
+                "sequence_key": workout_sequence[sequence_index % 6]
+            })
+            sequence_index += 1
+        current_day += timedelta(days=1)
+    
+    # Find the first uncompleted workout
+    completed_workout_keys = set()
+    for session in completed_sessions:
+        session_date = session["date"] if isinstance(session["date"], datetime) else datetime.fromisoformat(session["date"].replace('Z', '+00:00'))
+        workout_key = f"{session['workout_type']}{session['workout_number']}"
+        completed_workout_keys.add(f"{session_date.date()}_{workout_key}")
+    
+    # Find first uncompleted expected workout
+    for expected in expected_workouts:
+        expected_key = f"{expected['date'].date()}_{expected['workout_type']}{expected['workout_number']}"
+        if expected_key not in completed_workout_keys:
+            return expected["workout_type"], expected["workout_number"]
+    
+    # If all expected workouts are complete, continue with the sequence
+    workout_type, workout_number = get_workout_for_day(start_date, target_date, rest_day)
+    return workout_type, workout_number
 
 # API Routes
 @api_router.get("/")
