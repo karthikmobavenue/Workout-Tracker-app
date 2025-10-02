@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { User, Calendar, TrendingUp, Play } from 'lucide-react';
 
-const Dashboard = ({ user, onStartProgram }) => {
+const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
   const hasStartedProgram = user.program_start_date;
 
   return (
