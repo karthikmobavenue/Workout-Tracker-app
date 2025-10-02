@@ -18,6 +18,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
   const [saving, setSaving] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [showProgressModal, setShowProgressModal] = useState(false);
+  const [expandedExercises, setExpandedExercises] = useState({});
   const { toast } = useToast();
 
   useEffect(() => {
