@@ -290,6 +290,10 @@ def get_workout_for_day(start_date: datetime, target_date: datetime):
     return workout_map[workout_cycle]
 
 # API Routes
+@api_router.get("/")
+async def root():
+    return {"message": "PPL Workout Tracker API", "status": "running"}
+
 @api_router.post("/users", response_model=User)
 async def create_user(user_data: UserCreate):
     user_dict = user_data.dict()
