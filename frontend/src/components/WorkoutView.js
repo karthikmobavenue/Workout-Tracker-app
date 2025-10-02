@@ -78,6 +78,19 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
   };
 
   const saveWorkout = async () => {
+    // Check if trying to save future workout
+    const today = new Date().toISOString().split('T')[0];
+    const workoutDate = selectedDate || today;
+    
+    if (workoutDate > today) {
+      toast({
+        title: "Cannot Save Future Workout",
+        description: "You can only save today's workout or past workouts",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setSaving(true);
     try {
       const exercises = currentWorkout.exercises.map(exercise => ({
@@ -94,18 +107,18 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
         week: currentWorkout.week,
         phase: currentWorkout.phase,
         exercises: exercises,
-        date: new Date().toISOString()
+        date: new Date(workoutDate).toISOString()
       };
 
       await axios.post(`${API}/users/${user.id}/workout-session`, sessionData);
       
       toast({
         title: "Workout Saved! 💪",
-        description: "Your workout has been logged successfully",
+        description: "Moving to next workout...",
       });
 
-      // Refresh to get next workout
-      await fetchCurrentWorkout();
+      // Clear selectedDate to go back to current workout progression
+      setCurrentView('calendar'); // Go to calendar to see completion status
       
     } catch (error) {
       console.error('Error saving workout:', error);
