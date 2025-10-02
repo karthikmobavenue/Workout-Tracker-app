@@ -67,6 +67,11 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     fetchCurrentWorkout();
   };
 
+  const closeProgressModal = () => {
+    setShowProgressModal(false);
+    setSelectedExercise(null);
+  };
+
   const updateExerciseLog = (exerciseName, field, value) => {
     setExerciseLogs(prev => ({
       ...prev,
