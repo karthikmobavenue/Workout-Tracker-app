@@ -63,7 +63,7 @@ function App() {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'workout':
-        return <WorkoutView user={user} setCurrentView={setCurrentView} selectedDate={selectedDate} />;
+        return <WorkoutView user={user} setCurrentView={setCurrentView} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />;
       case 'calendar':
         return <CalendarView user={user} setCurrentView={setCurrentView} setSelectedDate={setSelectedDate} />;
       case 'progress':
