@@ -554,7 +554,8 @@ async def get_workout_for_date(user_id: str, date: str):
         raise HTTPException(status_code=400, detail="Program not started")
     
     try:
-        target_date = datetime.fromisoformat(f"{date}T00:00:00+00:00")
+        # Use the same date calculation as calendar - use current time for consistency
+        target_date = datetime.fromisoformat(f"{date}T12:00:00+00:00")  # Use noon to avoid timezone issues
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
     
