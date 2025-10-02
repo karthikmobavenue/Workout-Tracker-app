@@ -43,6 +43,7 @@ class User(BaseModel):
     height: float  # in cm
     weight: float  # in kg
     gender: Gender
+    rest_day: int = 0  # 0=Sunday, 1=Monday, 2=Tuesday, etc.
     program_start_date: Optional[datetime] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
