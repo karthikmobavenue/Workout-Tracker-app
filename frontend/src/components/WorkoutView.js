@@ -11,7 +11,7 @@ import ExerciseProgressModal from './ExerciseProgressModal';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const WorkoutView = ({ user, setCurrentView }) => {
+const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
   const [currentWorkout, setCurrentWorkout] = useState(null);
   const [exerciseLogs, setExerciseLogs] = useState({});
   const [loading, setLoading] = useState(true);
