@@ -59,7 +59,8 @@ const UserOnboarding = ({ onUserCreated }) => {
         ...formData,
         age: parseInt(formData.age),
         height: parseFloat(formData.height),
-        weight: parseFloat(formData.weight)
+        weight: parseFloat(formData.weight),
+        rest_day: parseInt(formData.rest_day)
       };
       
       const response = await axios.post(`${API}/users`, userData);
