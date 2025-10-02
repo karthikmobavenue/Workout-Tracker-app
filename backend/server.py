@@ -295,8 +295,7 @@ def get_workout_for_day(start_date: datetime, target_date: datetime, rest_day: i
         current_day += timedelta(days=1)
     
     # 6-workout cycle: Push1, Pull1, Legs1, Push2, Pull2, Legs2
-    # Add 1 to align with calendar logic (start from Pull1 instead of Push1)
-    workout_cycle = (workout_days_count + 1) % 6
+    workout_cycle = workout_days_count % 6
     
     workout_map = {
         0: ("push", 1),
