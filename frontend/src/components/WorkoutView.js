@@ -150,6 +150,26 @@ const WorkoutView = ({ user }) => {
     );
   }
 
+  // Handle rest day
+  if (currentWorkout.is_rest_day || currentWorkout.workout_type === 'rest') {
+    return (
+      <div className="max-w-4xl mx-auto p-4 py-8">
+        <Card className="mb-6">
+          <CardContent className="text-center py-12">
+            <div className="text-6xl mb-4">🛌</div>
+            <h2 className="text-2xl font-bold text-black mb-2">Rest Day</h2>
+            <p className="text-gray-600 mb-4">
+              Time to recover! Your muscles grow during rest.
+            </p>
+            <div className="text-sm text-gray-500">
+              Next workout: Tomorrow
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-4 py-8">
       {/* Workout Header */}
