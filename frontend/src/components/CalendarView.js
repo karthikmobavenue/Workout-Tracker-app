@@ -37,7 +37,6 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
   };
 
   const getWorkoutTypeColor = (workoutType, isRestDay, isCompleted) => {
-  const getWorkoutTypeColor = (workoutType, isRestDay, isCompleted) => {
     if (isRestDay) return 'bg-gray-100 text-gray-800 border-gray-200';
     
     // Base colors
