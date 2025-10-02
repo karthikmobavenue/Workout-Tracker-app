@@ -292,66 +292,97 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
         </CardHeader>
         <CardContent className="p-6">
           <div className="space-y-6">
-            {currentWorkout.exercises.map((exercise, index) => (
-              <div key={index} className="group relative bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                {/* Exercise Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
-                    </div>
-                    <h3 
-                      className="text-xl font-bold text-gray-800 cursor-pointer hover:text-gray-600 flex items-center gap-3 transition-colors" 
-                      data-testid={`exercise-${index}`}
-                      onClick={() => handleExerciseClick(exercise.name)}
-                    >
-                      {exercise.name}
-                      <BarChart3 className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
-                    </h3>
-                  </div>
-                  <Badge variant="secondary" className="text-sm bg-gray-100 text-gray-700 px-3 py-1 font-semibold">
-                    {exercise.sets} sets × {exercise.reps} reps
-                  </Badge>
-                </div>
-                
-                {/* Exercise Input Section */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                      Weight (kg)
-                    </label>
-                    <Input
-                      type="number"
-                      placeholder="Enter weight"
-                      value={exerciseLogs[exercise.name]?.load || ''}
-                      onChange={(e) => updateExerciseLog(exercise.name, 'load', e.target.value)}
-                      className="h-12 text-lg font-semibold text-center border-2 focus:border-black"
-                      data-testid={`load-input-${index}`}
-                      step="0.5"
-                      min="0"
-                    />
-                  </div>
-                  
-                  {exercise.previous_load && (
-                    <div className="bg-gray-50 rounded-lg p-4 text-center">
-                      <div className="flex items-center justify-center gap-2 text-gray-600 mb-1">
-                        <Clock className="h-4 w-4" />
-                        <span className="text-sm font-medium uppercase tracking-wide">Previous</span>
+            {currentWorkout.exercises.map((exercise, index) => {
+              const isExpanded = expandedExercises[exercise.name];
+              return (
+                <div key={index} className="group relative bg-white border-2 border-gray-100 rounded-xl overflow-hidden hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+                  {/* Exercise Header - Always Visible */}
+                  <div 
+                    className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => toggleExercise(exercise.name)}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        {index + 1}
                       </div>
-                      <div className="text-2xl font-bold text-gray-800">{exercise.previous_load} kg</div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-800 flex items-center gap-3">
+                          {exercise.name}
+                          <BarChart3 
+                            className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleExerciseClick(exercise.name);
+                            }}
+                          />
+                        </h3>
+                        <p className="text-gray-500 mt-1">
+                          {exercise.sets} sets × {exercise.reps} reps
+                          {exercise.previous_load && ` • Previous: ${exercise.previous_load} kg`}
+                        </p>
+                      </div>
                     </div>
-                  )}
-                  
-                  <div className="bg-blue-50 rounded-lg p-4 text-center">
-                    <div className="flex items-center justify-center gap-2 text-blue-600 mb-1">
-                      <TrendingUp className="h-4 w-4" />
-                      <span className="text-sm font-medium uppercase tracking-wide">Target</span>
+                    <div className="flex items-center gap-3">
+                      {/* Quick weight display */}
+                      {exerciseLogs[exercise.name]?.load && (
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                          {exerciseLogs[exercise.name].load} kg
+                        </div>
+                      )}
+                      {/* Expand/Collapse Icon */}
+                      <div className={`w-6 h-6 text-gray-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
                     </div>
-                    <div className="text-2xl font-bold text-blue-800">{exercise.reps} reps</div>
+                  </div>
+
+                  {/* Exercise Details - Collapsible */}
+                  <div className={`transition-all duration-300 ease-in-out ${
+                    isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  } overflow-hidden`}>
+                    <div className="border-t border-gray-100 bg-gray-50 p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                        <div className="space-y-2">
+                          <label className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                            Weight (kg)
+                          </label>
+                          <Input
+                            type="number"
+                            placeholder="Enter weight"
+                            value={exerciseLogs[exercise.name]?.load || ''}
+                            onChange={(e) => updateExerciseLog(exercise.name, 'load', e.target.value)}
+                            className="h-12 text-lg font-semibold text-center border-2 focus:border-black"
+                            data-testid={`load-input-${index}`}
+                            step="0.5"
+                            min="0"
+                          />
+                        </div>
+                        
+                        {exercise.previous_load && (
+                          <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
+                            <div className="flex items-center justify-center gap-2 text-gray-600 mb-1">
+                              <Clock className="h-4 w-4" />
+                              <span className="text-sm font-medium uppercase tracking-wide">Previous</span>
+                            </div>
+                            <div className="text-2xl font-bold text-gray-800">{exercise.previous_load} kg</div>
+                          </div>
+                        )}
+                        
+                        <div className="bg-blue-50 rounded-lg p-4 text-center border border-blue-200">
+                          <div className="flex items-center justify-center gap-2 text-blue-600 mb-1">
+                            <TrendingUp className="h-4 w-4" />
+                            <span className="text-sm font-medium uppercase tracking-wide">Target</span>
+                          </div>
+                          <div className="text-2xl font-bold text-blue-800">{exercise.reps} reps</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       </Card>
