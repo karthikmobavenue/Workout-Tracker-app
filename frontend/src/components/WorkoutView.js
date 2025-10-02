@@ -26,7 +26,14 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
 
   const fetchCurrentWorkout = async () => {
     try {
-      const response = await axios.get(`${API}/users/${user.id}/current-workout`);
+      let response;
+      if (selectedDate) {
+        // Fetch specific date workout
+        response = await axios.get(`${API}/users/${user.id}/workout/${selectedDate}`);
+      } else {
+        // Fetch current workout
+        response = await axios.get(`${API}/users/${user.id}/current-workout`);
+      }
       setCurrentWorkout(response.data);
       
       // Initialize exercise logs with previous loads
