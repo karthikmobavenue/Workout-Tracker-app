@@ -42,6 +42,7 @@ const UserOnboarding = ({ onUserCreated }) => {
     if (!formData.height || formData.height < 100 || formData.height > 250) newErrors.height = 'Valid height required (100-250 cm)';
     if (!formData.weight || formData.weight < 30 || formData.weight > 300) newErrors.weight = 'Valid weight required (30-300 kg)';
     if (!formData.gender) newErrors.gender = 'Gender is required';
+    if (!formData.rest_day) newErrors.rest_day = 'Rest day is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
