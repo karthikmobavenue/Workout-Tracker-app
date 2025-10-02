@@ -50,14 +50,14 @@ const WorkoutView = ({ user }) => {
     }
   };
 
-  const updateExerciseLog = (exerciseName, field, value) => {
-    setExerciseLogs(prev => ({
-      ...prev,
-      [exerciseName]: {
-        ...prev[exerciseName],
-        [field]: value
-      }
-    }));
+  const handleExerciseClick = (exerciseName) => {
+    setSelectedExercise(exerciseName);
+    setShowProgressModal(true);
+  };
+
+  const closeProgressModal = () => {
+    setShowProgressModal(false);
+    setSelectedExercise(null);
   };
 
   const saveWorkout = async () => {
