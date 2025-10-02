@@ -28,7 +28,9 @@ const CalendarView = ({ user }) => {
     }
   };
 
-  const getWorkoutTypeColor = (workoutType) => {
+  const getWorkoutTypeColor = (workoutType, isRestDay) => {
+    if (isRestDay) return 'bg-gray-100 text-gray-800 border-gray-200';
+    
     switch (workoutType) {
       case 'push': return 'bg-red-100 text-red-800 border-red-200';
       case 'pull': return 'bg-blue-100 text-blue-800 border-blue-200';
