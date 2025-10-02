@@ -19,6 +19,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentView, setCurrentView] = useState('dashboard');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     // Check if user exists in localStorage
