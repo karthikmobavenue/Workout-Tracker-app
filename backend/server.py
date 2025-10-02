@@ -417,10 +417,8 @@ async def get_current_workout(user_id: str):
             "is_rest_day": True
         }
     
-    # Get workout accounting for missed sessions
-    workout_type, workout_number = await get_current_workout_accounting_for_completion(
-        user_id, current_date, start_date, rest_day
-    )
+    # Get workout using simple logic (same as calendar)
+    workout_type, workout_number = get_workout_for_day(start_date, current_date, rest_day)
     
     # Handle deload weeks
     if "deload" in phase:
