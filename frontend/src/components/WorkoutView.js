@@ -197,21 +197,39 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
   return (
     <div className="max-w-4xl mx-auto p-4 py-8">
       {/* Workout Header */}
-      <Card className="mb-6">
-        <CardHeader>
+      <Card className="mb-6 border-2 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-2xl font-bold text-black">
+              <CardTitle className="text-3xl font-bold text-black tracking-tight">
                 {currentWorkout.workout_type.toUpperCase()}{currentWorkout.workout_number}
               </CardTitle>
-              <p className="text-gray-600 mt-1">
-                Week {currentWorkout.week} • {new Date().toLocaleDateString()}
+              <p className="text-gray-600 mt-2 text-lg">
+                Week {currentWorkout.week} • {selectedDate ? 
+                  new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  }) : 
+                  new Date().toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })
+                }
               </p>
             </div>
-            <div className="flex items-center gap-2">
-              <Badge className={`${getPhaseColor(currentWorkout.phase)} border-0`}>
+            <div className="flex items-center gap-3">
+              <Badge className={`text-sm px-4 py-2 ${getPhaseColor(currentWorkout.phase)} border-0 font-semibold`}>
                 {getPhaseName(currentWorkout.phase)}
               </Badge>
+              {selectedDate && selectedDate !== new Date().toISOString().split('T')[0] && (
+                <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                  📅 Historical Workout
+                </div>
+              )}
             </div>
           </div>
         </CardHeader>
