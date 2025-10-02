@@ -10,6 +10,7 @@ import WorkoutView from './components/WorkoutView';
 import CalendarView from './components/CalendarView';
 import ProgressView from './components/ProgressView';
 import Navigation from './components/Navigation';
+import { Toaster } from './components/ui/sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
