@@ -16,6 +16,8 @@ const WorkoutView = ({ user }) => {
   const [exerciseLogs, setExerciseLogs] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [showProgressModal, setShowProgressModal] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
