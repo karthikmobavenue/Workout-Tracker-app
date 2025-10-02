@@ -204,11 +204,18 @@ const WorkoutView = ({ user }) => {
         <CardContent>
           <div className="space-y-4">
             {currentWorkout.exercises.map((exercise, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4">
+              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-black text-lg" data-testid={`exercise-${index}`}>
-                    {exercise.name}
-                  </h3>
+                  <div className="flex items-center gap-3">
+                    <h3 
+                      className="font-semibold text-black text-lg cursor-pointer hover:text-gray-600 flex items-center gap-2" 
+                      data-testid={`exercise-${index}`}
+                      onClick={() => handleExerciseClick(exercise.name)}
+                    >
+                      {exercise.name}
+                      <BarChart3 className="h-4 w-4 text-gray-400" />
+                    </h3>
+                  </div>
                   <Badge variant="secondary" className="text-sm">
                     {exercise.sets} sets × {exercise.reps} reps
                   </Badge>
