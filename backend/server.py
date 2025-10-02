@@ -469,21 +469,38 @@ async def get_workout_calendar(user_id: str, days: int = 30):
         raise HTTPException(status_code=400, detail="Program not started")
     
     start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
+    rest_day = user.get("rest_day", 0)
     calendar_data = []
     
     for i in range(days):
         target_date = datetime.now(timezone.utc) + timedelta(days=i)
         week, phase = get_current_week_and_phase(start_date)
-        workout_type, workout_number = get_workout_for_day(start_date, target_date)
         
-        calendar_data.append({
-            "date": target_date,
-            "week": week,
-            "phase": phase,
-            "workout_type": workout_type,
-            "workout_number": workout_number,
-            "workout_name": f"{workout_type.title()}{workout_number}" if "deload" not in phase else "Rest Day"
-        })
+        # Check if it's a rest day
+        if target_date.weekday() == (rest_day - 1) % 7:
+            calendar_data.append({
+                "date": target_date,
+                "week": week,
+                "phase": phase,
+                "workout_type": "rest",
+                "workout_number": 0,
+                "workout_name": "Rest Day",
+                "is_rest_day": True
+            })
+        else:
+            workout_type, workout_number = await get_current_workout_accounting_for_completion(
+                user_id, target_date, start_date, rest_day
+            )
+            
+            calendar_data.append({
+                "date": target_date,
+                "week": week,
+                "phase": phase,
+                "workout_type": workout_type,
+                "workout_number": workout_number,
+                "workout_name": f"{workout_type.title()}{workout_number}" if "deload" not in phase else "Deload",
+                "is_rest_day": False
+            })
     
     return calendar_data
 
