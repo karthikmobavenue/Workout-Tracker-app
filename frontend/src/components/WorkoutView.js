@@ -63,6 +63,13 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     setShowProgressModal(true);
   };
 
+  const toggleExercise = (exerciseName) => {
+    setExpandedExercises(prev => ({
+      ...prev,
+      [exerciseName]: !prev[exerciseName]
+    }));
+  };
+
   const goToCurrentWorkout = () => {
     setSelectedDate(null); // Clear selected date to get current workout
     fetchCurrentWorkout();
