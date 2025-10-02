@@ -4,8 +4,9 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
-import { Save, Clock, Weight, TrendingUp } from 'lucide-react';
+import { Save, Clock, Weight, TrendingUp, BarChart3 } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import ExerciseProgressModal from './ExerciseProgressModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
