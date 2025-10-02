@@ -401,13 +401,30 @@ async def get_current_workout(user_id: str):
     
     start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
     current_date = datetime.now(timezone.utc)
+    rest_day = user.get("rest_day", 0)
     
     week, phase = get_current_week_and_phase(start_date)
-    workout_type, workout_number = get_workout_for_day(start_date, current_date)
+    
+    # Check if today is a rest day
+    if current_date.weekday() == (rest_day - 1) % 7:
+        return {
+            "week": week,
+            "phase": phase,
+            "workout_type": "rest",
+            "workout_number": 0,
+            "exercises": [{"name": "Rest Day - Recovery", "sets": 0, "reps": "Take a break!"}],
+            "date": current_date,
+            "is_rest_day": True
+        }
+    
+    # Get workout accounting for missed sessions
+    workout_type, workout_number = await get_current_workout_accounting_for_completion(
+        user_id, current_date, start_date, rest_day
+    )
     
     # Handle deload weeks
     if "deload" in phase:
-        exercises = [{"name": "Rest Day - Light Activity", "sets": 0, "reps": "Recovery"}]
+        exercises = [{"name": "Light Activity - Deload Week", "sets": 0, "reps": "Recovery"}]
     else:
         workout_key = f"{workout_type}{workout_number}"
         exercises = WORKOUT_PROGRAM[phase]["workouts"].get(workout_key, [])
@@ -438,7 +455,8 @@ async def get_current_workout(user_id: str):
         "workout_type": workout_type,
         "workout_number": workout_number,
         "exercises": exercises,
-        "date": current_date
+        "date": current_date,
+        "is_rest_day": False
     }
 
 @api_router.get("/users/{user_id}/calendar")
