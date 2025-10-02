@@ -1,52 +1,84 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
+import '@/App.css';
+
+// Components
+import UserOnboarding from './components/UserOnboarding';
+import Dashboard from './components/Dashboard';
+import WorkoutView from './components/WorkoutView';
+import CalendarView from './components/CalendarView';
+import ProgressView from './components/ProgressView';
+import Navigation from './components/Navigation';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const Home = () => {
-  const helloWorldApi = async () => {
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentView, setCurrentView] = useState('dashboard');
+
+  useEffect(() => {
+    // Check if user exists in localStorage
+    const savedUser = localStorage.getItem('ppl_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false);
+  }, []);
+
+  const handleUserCreated = (userData) => {
+    setUser(userData);
+    localStorage.setItem('ppl_user', JSON.stringify(userData));
+  };
+
+  const startProgram = async () => {
     try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+      await axios.post(`${API}/users/${user.id}/start-program`);
+      const updatedUser = { ...user, program_started: true };
+      setUser(updatedUser);
+      localStorage.setItem('ppl_user', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('Error starting program:', error);
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-black text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <UserOnboarding onUserCreated={handleUserCreated} />;
+  }
+
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'workout':
+        return <WorkoutView user={user} />;
+      case 'calendar':
+        return <CalendarView user={user} />;
+      case 'progress':
+        return <ProgressView user={user} />;
+      default:
+        return <Dashboard user={user} onStartProgram={startProgram} />;
+    }
+  };
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <div className="App min-h-screen bg-white text-black">
+      <Navigation 
+        currentView={currentView} 
+        setCurrentView={setCurrentView}
+        user={user}
+      />
+      <main className="pb-16">
+        {renderCurrentView()}
+      </main>
     </div>
   );
 }
