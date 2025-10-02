@@ -22,7 +22,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
 
   useEffect(() => {
     fetchCurrentWorkout();
-  }, []);
+  }, [selectedDate]); // Re-fetch when selectedDate changes
 
   const fetchCurrentWorkout = async () => {
     try {
