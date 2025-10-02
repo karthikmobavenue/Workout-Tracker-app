@@ -236,44 +236,51 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
       </Card>
 
       {/* Exercise List */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Weight className="h-5 w-5" />
-            Today's Exercises
+      <Card className="mb-8 border-2 shadow-xl">
+        <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 border-b">
+          <CardTitle className="text-2xl font-bold text-black flex items-center gap-3">
+            <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+              <Weight className="h-6 w-6 text-white" />
+            </div>
+            Today's Training Session
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="p-6">
+          <div className="space-y-6">
             {currentWorkout.exercises.map((exercise, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
+              <div key={index} className="group relative bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                {/* Exercise Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-8 h-8 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                      {index + 1}
+                    </div>
                     <h3 
-                      className="font-semibold text-black text-lg cursor-pointer hover:text-gray-600 flex items-center gap-2" 
+                      className="text-xl font-bold text-gray-800 cursor-pointer hover:text-gray-600 flex items-center gap-3 transition-colors" 
                       data-testid={`exercise-${index}`}
                       onClick={() => handleExerciseClick(exercise.name)}
                     >
                       {exercise.name}
-                      <BarChart3 className="h-4 w-4 text-gray-400" />
+                      <BarChart3 className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </h3>
                   </div>
-                  <Badge variant="secondary" className="text-sm">
+                  <Badge variant="secondary" className="text-sm bg-gray-100 text-gray-700 px-3 py-1 font-semibold">
                     {exercise.sets} sets × {exercise.reps} reps
                   </Badge>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Load (kg)
+                {/* Exercise Input Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      Weight (kg)
                     </label>
                     <Input
                       type="number"
                       placeholder="Enter weight"
                       value={exerciseLogs[exercise.name]?.load || ''}
                       onChange={(e) => updateExerciseLog(exercise.name, 'load', e.target.value)}
-                      className="w-full"
+                      className="h-12 text-lg font-semibold text-center border-2 focus:border-black"
                       data-testid={`load-input-${index}`}
                       step="0.5"
                       min="0"
@@ -281,19 +288,21 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
                   </div>
                   
                   {exercise.previous_load && (
-                    <div className="text-sm text-gray-600">
-                      <div className="flex items-center gap-1">
+                    <div className="bg-gray-50 rounded-lg p-4 text-center">
+                      <div className="flex items-center justify-center gap-2 text-gray-600 mb-1">
                         <Clock className="h-4 w-4" />
-                        <span>Previous: {exercise.previous_load} kg</span>
+                        <span className="text-sm font-medium uppercase tracking-wide">Previous</span>
                       </div>
+                      <div className="text-2xl font-bold text-gray-800">{exercise.previous_load} kg</div>
                     </div>
                   )}
                   
-                  <div className="text-sm text-gray-500">
-                    <div className="flex items-center gap-1">
+                  <div className="bg-blue-50 rounded-lg p-4 text-center">
+                    <div className="flex items-center justify-center gap-2 text-blue-600 mb-1">
                       <TrendingUp className="h-4 w-4" />
-                      <span>Target: {exercise.reps} reps</span>
+                      <span className="text-sm font-medium uppercase tracking-wide">Target</span>
                     </div>
+                    <div className="text-2xl font-bold text-blue-800">{exercise.reps} reps</div>
                   </div>
                 </div>
               </div>
