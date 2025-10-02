@@ -62,9 +62,9 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     setShowProgressModal(true);
   };
 
-  const closeProgressModal = () => {
-    setShowProgressModal(false);
-    setSelectedExercise(null);
+  const goToCurrentWorkout = () => {
+    setSelectedDate(null); // Clear selected date to get current workout
+    fetchCurrentWorkout();
   };
 
   const updateExerciseLog = (exerciseName, field, value) => {
