@@ -507,6 +507,7 @@ async def get_workout_calendar(user_id: str, days: int = 30):
 @api_router.post("/users/{user_id}/workout-session")
 async def log_workout_session(user_id: str, session_data: WorkoutSessionCreate):
     session_dict = session_data.dict()
+    session_dict["completed"] = True  # Mark as completed when logged
     session_obj = WorkoutSession(**session_dict)
     session_dict = prepare_for_mongo(session_obj.dict())
     await db.workout_sessions.insert_one(session_dict)
@@ -527,6 +528,28 @@ async def log_workout_session(user_id: str, session_data: WorkoutSessionCreate):
             await db.exercise_logs.insert_one(exercise_dict)
     
     return {"message": "Workout session logged"}
+
+@api_router.get("/users/{user_id}/exercise-progress/{exercise_name}")
+async def get_single_exercise_progress(user_id: str, exercise_name: str):
+    """Get progress data for a specific exercise with dates and weights"""
+    logs = await db.exercise_logs.find(
+        {"user_id": user_id, "exercise_name": exercise_name}
+    ).sort("workout_date", 1).to_list(None)
+    
+    progress_data = []
+    for log in logs:
+        log = parse_from_mongo(log)
+        progress_data.append({
+            "date": log["workout_date"].strftime("%Y-%m-%d") if isinstance(log["workout_date"], datetime) else log["workout_date"],
+            "load": log["load"],
+            "sets": log["sets"],
+            "reps": log["reps"]
+        })
+    
+    return {
+        "exercise_name": exercise_name,
+        "data": progress_data
+    }
 
 @api_router.get("/users/{user_id}/progress/{exercise_name}")
 async def get_exercise_progress(user_id: str, exercise_name: str):
