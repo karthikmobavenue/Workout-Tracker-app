@@ -253,8 +253,18 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                 {getPhaseName(currentWorkout.phase)}
               </Badge>
               {selectedDate && selectedDate !== new Date().toISOString().split('T')[0] && (
-                <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                  📅 Historical Workout
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                    📅 Historical Workout
+                  </div>
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={goToCurrentWorkout}
+                    className="border-blue-500 text-blue-600 hover:bg-blue-50"
+                  >
+                    Today's Workout
+                  </Button>
                 </div>
               )}
             </div>
