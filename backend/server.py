@@ -470,15 +470,32 @@ async def get_workout_calendar(user_id: str, days: int = 30):
     
     start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
     rest_day = user.get("rest_day", 0)
-    rest_weekday = (rest_day + 6) % 7
     calendar_data = []
+    
+    # Get completed workout sessions for completion status
+    completed_sessions = await db.workout_sessions.find(
+        {"user_id": user_id, "completed": True}
+    ).to_list(None)
+    
+    completed_dates = set()
+    for session in completed_sessions:
+        session_date = session["date"] if isinstance(session["date"], datetime) else datetime.fromisoformat(session["date"].replace('Z', '+00:00'))
+        workout_key = f"{session_date.date()}_{session['workout_type']}{session['workout_number']}"
+        completed_dates.add(workout_key)
     
     for i in range(days):
         target_date = datetime.now(timezone.utc) + timedelta(days=i)
         week, phase = get_current_week_and_phase(start_date)
         
-        # Check if it's a rest day
-        if target_date.weekday() == rest_weekday:
+        # Use simple workout calculation for calendar planning
+        workout_type, workout_number = get_workout_for_day(start_date, target_date, rest_day)
+        
+        # Check if this workout is completed
+        workout_key = f"{target_date.date()}_{workout_type}{workout_number}"
+        is_completed = workout_key in completed_dates
+        
+        # Check if it's a rest day  
+        if workout_type == "rest":
             calendar_data.append({
                 "date": target_date,
                 "week": week,
@@ -486,13 +503,10 @@ async def get_workout_calendar(user_id: str, days: int = 30):
                 "workout_type": "rest",
                 "workout_number": 0,
                 "workout_name": "Rest Day",
-                "is_rest_day": True
+                "is_rest_day": True,
+                "is_completed": False
             })
         else:
-            workout_type, workout_number = await get_current_workout_accounting_for_completion(
-                user_id, target_date, start_date, rest_day
-            )
-            
             calendar_data.append({
                 "date": target_date,
                 "week": week,
@@ -500,7 +514,8 @@ async def get_workout_calendar(user_id: str, days: int = 30):
                 "workout_type": workout_type,
                 "workout_number": workout_number,
                 "workout_name": f"{workout_type.title()}{workout_number}" if "deload" not in phase else "Deload",
-                "is_rest_day": False
+                "is_rest_day": False,
+                "is_completed": is_completed
             })
     
     return calendar_data
