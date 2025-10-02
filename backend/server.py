@@ -405,7 +405,8 @@ async def get_current_workout(user_id: str):
     week, phase = get_current_week_and_phase(start_date)
     
     # Check if today is a rest day
-    if current_date.weekday() == (rest_day - 1) % 7:
+    rest_weekday = (rest_day + 6) % 7
+    if current_date.weekday() == rest_weekday:
         return {
             "week": week,
             "phase": phase,
