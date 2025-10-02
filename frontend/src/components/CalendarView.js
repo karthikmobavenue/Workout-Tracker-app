@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const CalendarView = ({ user }) => {
+const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
   const [calendarData, setCalendarData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
