@@ -179,17 +179,24 @@ const CalendarView = ({ user }) => {
                     </div>
                     
                     <div className="space-y-1">
-                      {day.phase?.includes('deload') ? (
+                      {day.is_rest_day ? (
                         <Badge 
                           variant="secondary" 
                           className="text-xs bg-gray-100 text-gray-800 w-full justify-center"
                         >
-                          Rest
+                          Rest Day
+                        </Badge>
+                      ) : day.phase?.includes('deload') ? (
+                        <Badge 
+                          variant="secondary" 
+                          className="text-xs bg-orange-100 text-orange-800 w-full justify-center"
+                        >
+                          Deload
                         </Badge>
                       ) : (
                         <>
                           <Badge 
-                            className={`text-xs w-full justify-center ${getWorkoutTypeColor(day.workout_type)}`}
+                            className={`text-xs w-full justify-center ${getWorkoutTypeColor(day.workout_type, day.is_rest_day)}`}
                           >
                             {day.workout_name}
                           </Badge>
