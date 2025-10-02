@@ -16,7 +16,8 @@ const UserOnboarding = ({ onUserCreated }) => {
     age: '',
     height: '',
     weight: '',
-    gender: ''
+    gender: '',
+    rest_day: ''
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
