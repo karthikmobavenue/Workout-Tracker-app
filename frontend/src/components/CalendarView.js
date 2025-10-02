@@ -220,11 +220,16 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
                         </Badge>
                       ) : (
                         <>
-                          <Badge 
-                            className={`text-xs w-full justify-center ${getWorkoutTypeColor(day.workout_type, day.is_rest_day)}`}
-                          >
-                            {day.workout_name}
-                          </Badge>
+                          <div className="flex items-center justify-center gap-1">
+                            <Badge 
+                              className={`text-xs flex-1 justify-center ${getWorkoutTypeColor(day.workout_type, day.is_rest_day, day.is_completed)}`}
+                            >
+                              {day.workout_name}
+                            </Badge>
+                            {day.is_completed && (
+                              <span className="text-green-600 text-xs">✓</span>
+                            )}
+                          </div>
                           <div className="text-xs text-gray-500 text-center">
                             Week {day.week}
                           </div>
