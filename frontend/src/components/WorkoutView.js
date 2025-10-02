@@ -178,15 +178,37 @@ const WorkoutView = ({ user, setCurrentView, selectedDate }) => {
   if (currentWorkout.is_rest_day || currentWorkout.workout_type === 'rest') {
     return (
       <div className="max-w-4xl mx-auto p-4 py-8">
-        <Card className="mb-6">
-          <CardContent className="text-center py-12">
-            <div className="text-6xl mb-4">🛌</div>
-            <h2 className="text-2xl font-bold text-black mb-2">Rest Day</h2>
-            <p className="text-gray-600 mb-4">
-              Time to recover! Your muscles grow during rest.
+        <Card className="border-2 shadow-2xl bg-gradient-to-br from-gray-50 to-gray-100">
+          <CardContent className="text-center py-16">
+            <div className="relative mb-8">
+              <div className="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full mx-auto flex items-center justify-center shadow-lg">
+                <div className="text-6xl">🛌</div>
+              </div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-white text-sm font-bold">✓</span>
+              </div>
+            </div>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4 tracking-tight">Rest Day</h2>
+            <p className="text-xl text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
+              Time to recover and rebuild! Your muscles grow during rest periods.
             </p>
-            <div className="text-sm text-gray-500">
-              Next workout: Tomorrow
+            <div className="bg-white rounded-xl p-6 shadow-lg max-w-sm mx-auto">
+              <div className="text-lg font-semibold text-gray-700 mb-2">Recovery Tips</div>
+              <ul className="text-gray-600 space-y-2 text-left">
+                <li>• Stay hydrated 💧</li>
+                <li>• Get quality sleep 😴</li>
+                <li>• Light stretching 🧘‍♀️</li>
+                <li>• Proper nutrition 🥗</li>
+              </ul>
+            </div>
+            <div className="mt-8">
+              <Button 
+                onClick={() => setCurrentView('calendar')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+              >
+                <Calendar className="mr-2 h-5 w-5" />
+                View Workout Calendar
+              </Button>
             </div>
           </CardContent>
         </Card>
