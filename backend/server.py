@@ -470,6 +470,7 @@ async def get_workout_calendar(user_id: str, days: int = 30):
     
     start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
     rest_day = user.get("rest_day", 0)
+    rest_weekday = (rest_day + 6) % 7
     calendar_data = []
     
     for i in range(days):
@@ -477,7 +478,7 @@ async def get_workout_calendar(user_id: str, days: int = 30):
         week, phase = get_current_week_and_phase(start_date)
         
         # Check if it's a rest day
-        if target_date.weekday() == (rest_day - 1) % 7:
+        if target_date.weekday() == rest_weekday:
             calendar_data.append({
                 "date": target_date,
                 "week": week,
