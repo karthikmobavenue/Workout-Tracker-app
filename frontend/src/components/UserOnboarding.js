@@ -166,43 +166,39 @@ const UserOnboarding = ({ onUserCreated }) => {
 
             <div>
               <Label htmlFor="gender">Gender</Label>
-              <Select 
+              <select 
                 value={formData.gender} 
-                onValueChange={(value) => handleInputChange('gender', value)}
+                onChange={(e) => handleInputChange('gender', e.target.value)}
                 disabled={loading}
+                className={`w-full px-3 py-2 border rounded-md bg-white ${errors.gender ? 'border-red-500' : 'border-gray-300'}`}
+                data-testid="gender-select"
               >
-                <SelectTrigger data-testid="gender-select" className={errors.gender ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="female">Female</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
               {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender}</p>}
             </div>
 
             <div>
               <Label htmlFor="rest_day">Preferred Rest Day</Label>
-              <Select 
+              <select 
                 value={formData.rest_day} 
-                onValueChange={(value) => handleInputChange('rest_day', value)}
+                onChange={(e) => handleInputChange('rest_day', e.target.value)}
                 disabled={loading}
+                className={`w-full px-3 py-2 border rounded-md bg-white ${errors.rest_day ? 'border-red-500' : 'border-gray-300'}`}
+                data-testid="rest-day-select"
               >
-                <SelectTrigger data-testid="rest-day-select" className={errors.rest_day ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Choose your rest day" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="0">Sunday</SelectItem>
-                  <SelectItem value="1">Monday</SelectItem>
-                  <SelectItem value="2">Tuesday</SelectItem>
-                  <SelectItem value="3">Wednesday</SelectItem>
-                  <SelectItem value="4">Thursday</SelectItem>
-                  <SelectItem value="5">Friday</SelectItem>
-                  <SelectItem value="6">Saturday</SelectItem>
-                </SelectContent>
-              </Select>
+                <option value="">Choose your rest day</option>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
               {errors.rest_day && <p className="text-red-500 text-sm mt-1">{errors.rest_day}</p>}
             </div>
 
