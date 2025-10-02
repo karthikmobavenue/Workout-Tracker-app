@@ -60,6 +60,16 @@ const WorkoutView = ({ user }) => {
     setSelectedExercise(null);
   };
 
+  const updateExerciseLog = (exerciseName, field, value) => {
+    setExerciseLogs(prev => ({
+      ...prev,
+      [exerciseName]: {
+        ...prev[exerciseName],
+        [field]: value
+      }
+    }));
+  };
+
   const saveWorkout = async () => {
     setSaving(true);
     try {
