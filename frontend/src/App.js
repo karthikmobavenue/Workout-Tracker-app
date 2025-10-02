@@ -40,6 +40,8 @@ function App() {
       const updatedUser = { ...user, program_start_date: response.data.start_date };
       setUser(updatedUser);
       localStorage.setItem('ppl_user', JSON.stringify(updatedUser));
+      // Redirect to workout after starting program
+      setCurrentView('workout');
     } catch (error) {
       console.error('Error starting program:', error);
     }
