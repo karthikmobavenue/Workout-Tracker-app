@@ -124,6 +124,7 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
                   variant="outline" 
                   className="border-black text-black hover:bg-black hover:text-white"
                   data-testid="view-calendar-btn"
+                  onClick={() => setCurrentView('calendar')}
                 >
                   <Calendar className="mr-2 h-4 w-4" />
                   View Calendar
@@ -131,6 +132,7 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
                 <Button 
                   className="bg-black hover:bg-gray-800"
                   data-testid="todays-workout-btn"
+                  onClick={() => setCurrentView('workout')}
                 >
                   Today's Workout
                 </Button>
