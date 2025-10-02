@@ -93,9 +93,13 @@ const WorkoutView = ({ user, setCurrentView }) => {
       await axios.post(`${API}/users/${user.id}/workout-session`, sessionData);
       
       toast({
-        title: "Workout Saved!",
+        title: "Workout Saved! 💪",
         description: "Your workout has been logged successfully",
       });
+
+      // Refresh to get next workout
+      await fetchCurrentWorkout();
+      
     } catch (error) {
       console.error('Error saving workout:', error);
       toast({
