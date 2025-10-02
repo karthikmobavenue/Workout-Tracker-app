@@ -311,6 +311,9 @@ def get_workout_for_day(start_date: datetime, target_date: datetime, rest_day: i
 async def get_current_workout_accounting_for_completion(user_id: str, target_date: datetime, start_date: datetime, rest_day: int):
     """Get current workout accounting for missed/incomplete previous workouts"""
     
+    # Convert rest_day (0=Sunday) to weekday format (0=Monday)
+    rest_weekday = (rest_day + 6) % 7
+    
     # Get all completed workout sessions for this user
     completed_sessions = await db.workout_sessions.find(
         {"user_id": user_id, "completed": True}
@@ -324,7 +327,7 @@ async def get_current_workout_accounting_for_completion(user_id: str, target_dat
     
     while current_day <= target_date:
         # Skip rest days
-        if current_day.weekday() != (rest_day - 1) % 7:
+        if current_day.weekday() != rest_weekday:
             expected_workouts.append({
                 "date": current_day,
                 "workout_type": workout_sequence[sequence_index % 6].replace("1", "").replace("2", ""),
