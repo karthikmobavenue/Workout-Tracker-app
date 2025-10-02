@@ -68,7 +68,7 @@ function App() {
       case 'progress':
         return <ProgressView user={user} />;
       default:
-        return <Dashboard user={user} onStartProgram={startProgram} />;
+        return <Dashboard user={user} onStartProgram={startProgram} setCurrentView={setCurrentView} />;
     }
   };
 
