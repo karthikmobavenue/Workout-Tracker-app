@@ -28,7 +28,15 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
     }
   };
 
-  const getWorkoutTypeColor = (workoutType, isRestDay) => {
+  const handleDateClick = (day) => {
+    if (day.is_rest_day) return; // Don't navigate for rest days
+    
+    const dateStr = new Date(day.date).toISOString().split('T')[0];
+    setSelectedDate(dateStr);
+    setCurrentView('workout');
+  };
+
+  const getWorkoutTypeColor = (workoutType, isRestDay, isCompleted) => {
     if (isRestDay) return 'bg-gray-100 text-gray-800 border-gray-200';
     
     switch (workoutType) {
