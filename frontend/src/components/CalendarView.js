@@ -182,13 +182,15 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
                   <div 
                     key={dayIndex} 
                     className={`
-                      min-h-[100px] p-3 border-2 rounded-lg transition-all
+                      min-h-[100px] p-3 border-2 rounded-lg transition-all cursor-pointer
                       ${isToday(day.date) 
                         ? 'border-black bg-gray-50 shadow-md' 
                         : 'border-gray-200 hover:border-gray-300'
                       }
+                      ${!day.is_rest_day ? 'hover:shadow-sm' : 'cursor-default'}
                     `}
                     data-testid={`calendar-day-${dayIndex}`}
+                    onClick={() => handleDateClick(day)}
                   >
                     <div className="flex justify-between items-start mb-2">
                       <span className={`text-sm font-medium ${
