@@ -37,14 +37,29 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
   };
 
   const getWorkoutTypeColor = (workoutType, isRestDay, isCompleted) => {
+  const getWorkoutTypeColor = (workoutType, isRestDay, isCompleted) => {
     if (isRestDay) return 'bg-gray-100 text-gray-800 border-gray-200';
     
+    // Base colors
+    let baseColor = '';
     switch (workoutType) {
-      case 'push': return 'bg-red-100 text-red-800 border-red-200';
-      case 'pull': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'legs': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'push': baseColor = 'bg-red-100 text-red-800 border-red-200'; break;
+      case 'pull': baseColor = 'bg-blue-100 text-blue-800 border-blue-200'; break;
+      case 'legs': baseColor = 'bg-green-100 text-green-800 border-green-200'; break;
+      default: baseColor = 'bg-gray-100 text-gray-800 border-gray-200'; break;
     }
+    
+    // Add completed styling
+    if (isCompleted) {
+      switch (workoutType) {
+        case 'push': return 'bg-red-600 text-white border-red-600';
+        case 'pull': return 'bg-blue-600 text-white border-blue-600';
+        case 'legs': return 'bg-green-600 text-white border-green-600';
+        default: return 'bg-gray-600 text-white border-gray-600';
+      }
+    }
+    
+    return baseColor;
   };
 
   const isToday = (date) => {
