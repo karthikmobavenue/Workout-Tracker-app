@@ -36,8 +36,8 @@ function App() {
 
   const startProgram = async () => {
     try {
-      await axios.post(`${API}/users/${user.id}/start-program`);
-      const updatedUser = { ...user, program_started: true };
+      const response = await axios.post(`${API}/users/${user.id}/start-program`);
+      const updatedUser = { ...user, program_start_date: response.data.start_date };
       setUser(updatedUser);
       localStorage.setItem('ppl_user', JSON.stringify(updatedUser));
     } catch (error) {
