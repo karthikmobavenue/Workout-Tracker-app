@@ -545,6 +545,76 @@ async def log_workout_session(user_id: str, session_data: WorkoutSessionCreate):
     
     return {"message": "Workout session logged"}
 
+@api_router.get("/users/{user_id}/workout/{date}")
+async def get_workout_for_date(user_id: str, date: str):
+    """Get workout for a specific date (format: YYYY-MM-DD)"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if not user.get("program_start_date"):
+        raise HTTPException(status_code=400, detail="Program not started")
+    
+    try:
+        target_date = datetime.fromisoformat(f"{date}T00:00:00+00:00")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
+    
+    start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
+    rest_day = user.get("rest_day", 0)
+    
+    week, phase = get_current_week_and_phase(start_date)
+    workout_type, workout_number = get_workout_for_day(start_date, target_date, rest_day)
+    
+    # Check if it's a rest day
+    if workout_type == "rest":
+        return {
+            "date": target_date,
+            "week": week,
+            "phase": phase,
+            "workout_type": "rest",
+            "workout_number": 0,
+            "exercises": [{"name": "Rest Day - Recovery", "sets": 0, "reps": "Take a break!"}],
+            "is_rest_day": True
+        }
+    
+    # Handle deload weeks
+    if "deload" in phase:
+        exercises = [{"name": "Light Activity - Deload Week", "sets": 0, "reps": "Recovery"}]
+    else:
+        workout_key = f"{workout_type}{workout_number}"
+        exercises = WORKOUT_PROGRAM[phase]["workouts"].get(workout_key, [])
+    
+    # Get previous session data for this exercise
+    previous_session = await db.workout_sessions.find_one(
+        {
+            "user_id": user_id,
+            "workout_type": workout_type,
+            "workout_number": workout_number
+        },
+        sort=[("date", -1)]
+    )
+    
+    # Add previous loads to exercises
+    for exercise in exercises:
+        previous_load = None
+        if previous_session:
+            for prev_ex in previous_session.get("exercises", []):
+                if prev_ex.get("name") == exercise["name"]:
+                    previous_load = prev_ex.get("load")
+                    break
+        exercise["previous_load"] = previous_load
+    
+    return {
+        "date": target_date,
+        "week": week,
+        "phase": phase,
+        "workout_type": workout_type,
+        "workout_number": workout_number,
+        "exercises": exercises,
+        "is_rest_day": False
+    }
+
 @api_router.get("/users/{user_id}/exercise-progress/{exercise_name}")
 async def get_single_exercise_progress(user_id: str, exercise_name: str):
     """Get progress data for a specific exercise with dates and weights"""
