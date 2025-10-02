@@ -80,6 +80,7 @@ function App() {
       <main className="pb-16">
         {renderCurrentView()}
       </main>
+      <Toaster />
     </div>
   );
 }
