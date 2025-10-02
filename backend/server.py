@@ -277,26 +277,22 @@ def get_current_week_and_phase(start_date: datetime):
 
 def get_workout_for_day(start_date: datetime, target_date: datetime, rest_day: int, user_id: str = None):
     """Get the workout type and number for a specific date, accounting for rest days and missed workouts"""
-    days_elapsed = (target_date - start_date).days
+    # Convert rest_day (0=Sunday) to weekday format (0=Monday)
+    # Sunday=0 -> weekday=6, Monday=1 -> weekday=0, etc.
+    rest_weekday = (rest_day + 6) % 7
+    
+    # Check if today is a rest day
+    if target_date.weekday() == rest_weekday:
+        return ("rest", 0)
     
     # Calculate how many workout days have passed (excluding rest days)
     workout_days_count = 0
     current_day = start_date
     
     while current_day < target_date:
-        if current_day.weekday() != (rest_day - 1) % 7:  # Convert rest_day to weekday format
+        if current_day.weekday() != rest_weekday:
             workout_days_count += 1
         current_day += timedelta(days=1)
-    
-    # Check if today is a rest day
-    if target_date.weekday() == (rest_day - 1) % 7:
-        return ("rest", 0)
-    
-    # If we have user_id, check for missed workouts
-    if user_id:
-        # This would require checking completed sessions in the database
-        # For now, we'll use the simple rotation
-        pass
     
     # 6-workout cycle: Push1, Pull1, Legs1, Push2, Pull2, Legs2
     workout_cycle = workout_days_count % 6
