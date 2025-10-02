@@ -273,6 +273,14 @@ const WorkoutView = ({ user }) => {
           {saving ? 'Saving...' : 'Save Workout'}
         </Button>
       </div>
+
+      {/* Exercise Progress Modal */}
+      <ExerciseProgressModal
+        isOpen={showProgressModal}
+        onClose={closeProgressModal}
+        exerciseName={selectedExercise}
+        userId={user.id}
+      />
     </div>
   );
 };
