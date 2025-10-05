@@ -543,6 +543,62 @@ async def log_workout_session(user_id: str, session_data: WorkoutSessionCreate):
     
     return {"message": "Workout session logged"}
 
+@api_router.get("/users/{user_id}/upcoming-workouts")
+async def get_upcoming_workouts(user_id: str, days: int = 7):
+    """Get upcoming workouts for the next few days"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if not user.get("program_start_date"):
+        raise HTTPException(status_code=400, detail="Program not started")
+    
+    start_date = datetime.fromisoformat(user["program_start_date"].replace('Z', '+00:00'))
+    rest_day = user.get("rest_day", 0)
+    upcoming_workouts = []
+    
+    for i in range(days):
+        target_date = datetime.now(timezone.utc) + timedelta(days=i)
+        week, phase = get_current_week_and_phase(start_date)
+        workout_type, workout_number = get_workout_for_day(start_date, target_date, rest_day)
+        
+        if workout_type != "rest":
+            # Get exercises for this workout
+            if "deload" in phase:
+                exercises = [{"name": "Light Activity - Deload Week", "sets": 0, "reps": "Recovery"}]
+            else:
+                workout_key = f"{workout_type}{workout_number}"
+                exercises = WORKOUT_PROGRAM[phase]["workouts"].get(workout_key, [])
+            
+            # Get previous session data
+            previous_session = await db.workout_sessions.find_one(
+                {"user_id": user_id, "workout_type": workout_type, "workout_number": workout_number},
+                sort=[("date", -1)]
+            )
+            
+            # Add previous loads
+            for exercise in exercises:
+                previous_load = None
+                if previous_session:
+                    for prev_ex in previous_session.get("exercises", []):
+                        if prev_ex.get("name") == exercise["name"]:
+                            previous_load = prev_ex.get("load")
+                            break
+                exercise["previous_load"] = previous_load
+            
+            upcoming_workouts.append({
+                "date": target_date,
+                "week": week,
+                "phase": phase,
+                "workout_type": workout_type,
+                "workout_number": workout_number,
+                "workout_name": f"{workout_type.upper()}{workout_number}",
+                "exercises": exercises,
+                "is_today": i == 0
+            })
+    
+    return upcoming_workouts
+
 @api_router.get("/users/{user_id}/workout/{date}")
 async def get_workout_for_date(user_id: str, date: str):
     """Get workout for a specific date (format: YYYY-MM-DD)"""
