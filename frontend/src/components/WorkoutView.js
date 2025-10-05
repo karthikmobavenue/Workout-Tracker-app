@@ -12,13 +12,13 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) => {
-  const [currentWorkout, setCurrentWorkout] = useState(null);
+  const [upcomingWorkouts, setUpcomingWorkouts] = useState([]);
   const [exerciseLogs, setExerciseLogs] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [showProgressModal, setShowProgressModal] = useState(false);
-  const [expandedExercises, setExpandedExercises] = useState({});
+  const [expandedWorkouts, setExpandedWorkouts] = useState({});
   const { toast } = useToast();
 
   useEffect(() => {
