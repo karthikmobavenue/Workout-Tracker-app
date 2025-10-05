@@ -29,23 +29,30 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     try {
       let response;
       if (selectedDate) {
-        // Fetch specific date workout
+        // Fetch specific date workout - single workout
         response = await axios.get(`${API}/users/${user.id}/workout/${selectedDate}`);
+        setUpcomingWorkouts([response.data]);
       } else {
-        // Fetch current workout
-        response = await axios.get(`${API}/users/${user.id}/current-workout`);
+        // Fetch upcoming workouts - multiple workouts
+        response = await axios.get(`${API}/users/${user.id}/upcoming-workouts?days=7`);
+        setUpcomingWorkouts(response.data);
       }
-      setCurrentWorkout(response.data);
       
-      // Initialize exercise logs with previous loads
+      // Initialize exercise logs
       const logs = {};
-      response.data.exercises.forEach(exercise => {
-        logs[exercise.name] = {
-          load: exercise.previous_load || '',
-          notes: ''
-        };
+      const allWorkouts = Array.isArray(response.data) ? response.data : [response.data];
+      allWorkouts.forEach(workout => {
+        if (workout.exercises) {
+          workout.exercises.forEach(exercise => {
+            logs[exercise.name] = {
+              load: exercise.previous_load || '',
+              notes: ''
+            };
+          });
+        }
       });
       setExerciseLogs(logs);
+      
     } catch (error) {
       console.error('Error fetching workout:', error);
       toast({
