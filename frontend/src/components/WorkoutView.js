@@ -63,10 +63,10 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     setShowProgressModal(true);
   };
 
-  const toggleExercise = (exerciseName) => {
-    setExpandedExercises(prev => ({
+  const toggleWorkout = (workoutName) => {
+    setExpandedWorkouts(prev => ({
       ...prev,
-      [exerciseName]: !prev[exerciseName]
+      [workoutName]: !prev[workoutName]
     }));
   };
 
