@@ -97,10 +97,10 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     }));
   };
 
-  const saveWorkout = async () => {
+  const saveWorkout = async (workout) => {
     // Check if trying to save future workout
     const today = new Date().toISOString().split('T')[0];
-    const workoutDate = selectedDate || today;
+    const workoutDate = new Date(workout.date).toISOString().split('T')[0];
     
     if (workoutDate > today) {
       toast({
@@ -113,7 +113,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
 
     setSaving(true);
     try {
-      const exercises = currentWorkout.exercises.map(exercise => ({
+      const exercises = workout.exercises.map(exercise => ({
         name: exercise.name,
         sets: exercise.sets,
         reps: exercise.reps,
@@ -122,23 +122,23 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
 
       const sessionData = {
         user_id: user.id,
-        workout_type: currentWorkout.workout_type,
-        workout_number: currentWorkout.workout_number,
-        week: currentWorkout.week,
-        phase: currentWorkout.phase,
+        workout_type: workout.workout_type,
+        workout_number: workout.workout_number,
+        week: workout.week,
+        phase: workout.phase,
         exercises: exercises,
-        date: new Date(workoutDate).toISOString()
+        date: workout.date
       };
 
       await axios.post(`${API}/users/${user.id}/workout-session`, sessionData);
       
       toast({
         title: "Workout Saved! 💪",
-        description: "Moving to next workout...",
+        description: `${workout.workout_name} completed successfully!`,
       });
 
-      // Clear selectedDate to go back to current workout progression
-      setCurrentView('calendar'); // Go to calendar to see completion status
+      // Refresh workout data
+      await fetchCurrentWorkout();
       
     } catch (error) {
       console.error('Error saving workout:', error);
