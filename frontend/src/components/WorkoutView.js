@@ -182,7 +182,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
     );
   }
 
-  if (!currentWorkout) {
+  if (!upcomingWorkouts || upcomingWorkouts.length === 0) {
     return (
       <div className="max-w-4xl mx-auto p-4 py-8">
         <Card>
@@ -195,7 +195,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
   }
 
   // Handle rest day
-  if (currentWorkout.is_rest_day || currentWorkout.workout_type === 'rest') {
+  if (upcomingWorkouts[0] && (upcomingWorkouts[0].is_rest_day || upcomingWorkouts[0].workout_type === 'rest')) {
     return (
       <div className="max-w-4xl mx-auto p-4 py-8">
         <Card className="border-2 shadow-2xl bg-gradient-to-br from-gray-50 to-gray-100">
