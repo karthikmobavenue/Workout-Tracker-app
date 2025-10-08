@@ -280,7 +280,11 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
           const isToday = workout.is_today;
           
           return (
-            <Card key={workoutIndex} className={`border-2 shadow-xl ${isToday ? 'border-black bg-gray-50' : 'border-gray-200'}`}>
+            <Card key={workoutIndex} className={`border-2 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:shadow-3xl hover:-translate-y-1 ${
+              isToday 
+                ? 'border-black bg-gradient-to-br from-gray-50 to-white shadow-black/10' 
+                : 'border-gray-200 bg-gradient-to-br from-white to-gray-50 hover:border-gray-300'
+            }`}>
               {/* Workout Header - Clickable */}
               <div 
                 className="cursor-pointer hover:bg-gray-50 transition-colors p-6 border-b border-gray-200"
