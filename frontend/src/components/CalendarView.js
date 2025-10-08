@@ -82,28 +82,30 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
-  // Group calendar data by weeks
+  // Group calendar data by weeks with proper alignment
   const groupByWeeks = (data) => {
-    const weeks = [];
-    let currentWeek = [];
+    if (!data || data.length === 0) return [];
     
-    data.forEach((day, index) => {
+    const weeks = [];
+    let currentWeek = new Array(7).fill(null); // Sunday = 0, Monday = 1, ..., Saturday = 6
+    
+    data.forEach((day) => {
       const date = new Date(day.date);
-      const dayOfWeek = date.getDay();
+      const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
       
-      // Start new week on Sunday
-      if (dayOfWeek === 0 && currentWeek.length > 0) {
-        weeks.push(currentWeek);
-        currentWeek = [];
+      // If we're starting a new week and current week has any data
+      if (dayOfWeek === 0 && currentWeek.some(d => d !== null)) {
+        weeks.push([...currentWeek]);
+        currentWeek = new Array(7).fill(null);
       }
       
-      currentWeek.push(day);
-      
-      // If it's the last day, push the current week
-      if (index === data.length - 1) {
-        weeks.push(currentWeek);
-      }
+      currentWeek[dayOfWeek] = day;
     });
+    
+    // Push the last week if it has any data
+    if (currentWeek.some(d => d !== null)) {
+      weeks.push(currentWeek);
+    }
     
     return weeks;
   };
