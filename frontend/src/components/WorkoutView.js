@@ -339,10 +339,10 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
               <div className={`transition-all duration-300 ease-in-out ${
                 isExpanded ? 'max-h-none opacity-100' : 'max-h-0 opacity-0'
               } overflow-hidden`}>
-                <div className="p-6 bg-white">
-                  <div className="space-y-4">
+                <div className="p-8 bg-gradient-to-b from-white to-gray-50">
+                  <div className="space-y-6">
                     {workout.exercises.map((exercise, exerciseIndex) => (
-                      <div key={exerciseIndex} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <div key={exerciseIndex} className="bg-white border-2 border-gray-100 rounded-xl p-6 shadow-lg hover:shadow-xl hover:border-gray-200 transition-all duration-300 group">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold text-sm">
