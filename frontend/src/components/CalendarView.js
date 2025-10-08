@@ -140,24 +140,24 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
       </Card>
 
       {/* Legend */}
-      <Card className="mb-6">
-        <CardContent className="pt-6">
-          <div className="flex flex-wrap gap-4 justify-center">
+      <Card className="mb-4">
+        <CardContent className="pt-4 pb-4">
+          <div className="flex flex-wrap gap-3 justify-center">
             <div className="flex items-center gap-2">
-              <Badge className="bg-red-100 text-red-800 border-red-200">Push</Badge>
-              <span className="text-sm text-gray-600">Chest, Shoulders, Triceps</span>
+              <Badge className="bg-red-100 text-red-700 border-red-200 text-xs px-2 py-1">Push</Badge>
+              <span className="text-xs text-gray-600">Chest, Shoulders, Triceps</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-blue-100 text-blue-800 border-blue-200">Pull</Badge>
-              <span className="text-sm text-gray-600">Back, Biceps</span>
+              <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs px-2 py-1">Pull</Badge>
+              <span className="text-xs text-gray-600">Back, Biceps</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-green-100 text-green-800 border-green-200">Legs</Badge>
-              <span className="text-sm text-gray-600">Quads, Hamstrings, Glutes</span>
+              <Badge className="bg-green-100 text-green-700 border-green-200 text-xs px-2 py-1">Legs</Badge>
+              <span className="text-xs text-gray-600">Quads, Hamstrings, Glutes</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-gray-100 text-gray-800 border-gray-200">Rest</Badge>
-              <span className="text-sm text-gray-600">Deload Week</span>
+              <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs px-2 py-1">Rest</Badge>
+              <span className="text-xs text-gray-600">Recovery Day</span>
             </div>
           </div>
         </CardContent>
