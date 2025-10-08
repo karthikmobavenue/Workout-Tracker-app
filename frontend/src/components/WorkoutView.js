@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
-import { Save, Clock, Weight, TrendingUp, BarChart3 } from 'lucide-react';
+import { Save, Clock, Weight, TrendingUp, BarChart3, Calendar } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 import ExerciseProgressModal from './ExerciseProgressModal';
 
