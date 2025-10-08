@@ -321,13 +321,13 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <Badge className={`text-sm px-4 py-2 ${getPhaseColor(workout.phase)} border-0 font-semibold`}>
+                  <div className="flex items-center gap-6">
+                    <Badge className={`text-sm px-5 py-3 ${getPhaseColor(workout.phase)} border-0 font-bold rounded-xl shadow-md`}>
                       {getPhaseName(workout.phase)}
                     </Badge>
                     {/* Expand/Collapse Icon */}
-                    <div className={`w-8 h-8 text-gray-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-full h-full">
+                    <div className={`w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700 transition-all duration-300 ${isExpanded ? 'rotate-180 bg-black text-white' : ''}`}>
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
