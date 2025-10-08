@@ -105,6 +105,42 @@
 user_problem_statement: "Enhance PPL workout tracker with improved Historical Workout badge (show green tick instead of navigation) and focus on premium UI structure and tiles for overall aesthetic improvement"
 
 backend:
+  - task: "User onboarding API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "User creation API tested successfully - creates users with all required fields (first_name, last_name, age, height, weight, gender, rest_day) and returns proper UUID"
+        
+  - task: "Program start functionality"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Program start API tested successfully - sets program_start_date correctly and persists in user profile"
+        
+  - task: "Current workout API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Current workout API (/api/users/{user_id}/current-workout) tested successfully - returns proper workout data with exercises, handles rest days correctly"
+        
   - task: "Multiple upcoming workouts API"
     implemented: true
     working: true
@@ -116,6 +152,57 @@ backend:
       - working: true
         agent: "main"
         comment: "API endpoint /api/users/{user_id}/upcoming-workouts is working for section-level accordion"
+      - working: true
+        agent: "testing"
+        comment: "Upcoming workouts API tested successfully - returns 6 upcoming workouts with proper structure for section-level accordion UI, includes all workout sections (push, pull, legs)"
+        
+  - task: "Specific day workout API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Specific day workout API (/api/users/{user_id}/workout/{date}) tested successfully - handles both current and future dates correctly for historical workout viewing"
+        
+  - task: "Calendar API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Calendar API (/api/users/{user_id}/calendar?days=30) tested successfully - returns 30-day calendar with 26 workout days and 4 rest days, proper completion tracking"
+        
+  - task: "Workout session saving"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Workout session saving API (/api/users/{user_id}/workout-session) tested successfully - saves workout sessions and individual exercise logs correctly"
+        
+  - task: "Exercise progress API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Exercise progress APIs tested successfully - both single exercise progress and all-exercises progress endpoints working correctly for progress graphs"
 
 frontend:
   - task: "Section-level accordion UI for workout sections"
