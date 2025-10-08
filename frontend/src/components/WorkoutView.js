@@ -408,13 +408,23 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
 
                   {/* Save Button for each workout */}
                   {isToday && (
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-8 pt-6 border-t border-gray-200">
                       <Button 
                         onClick={() => saveWorkout(workout)}
                         disabled={saving}
-                        className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
+                        className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white px-12 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                       >
-                        {saving ? 'Saving...' : `Complete ${workout.workout_name}`}
+                        {saving ? (
+                          <>
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                            Saving Progress...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="h-5 w-5" />
+                            Complete {workout.workout_name}
+                          </>
+                        )}
                       </Button>
                     </div>
                   )}
