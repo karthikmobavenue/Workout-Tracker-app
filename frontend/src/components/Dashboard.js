@@ -22,34 +22,40 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
       </div>
 
       {/* User Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Age</CardTitle>
-            <User className="h-4 w-4 text-gray-600" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <Card className="border-2 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-sm font-bold text-gray-600 uppercase tracking-wider">Age</CardTitle>
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+              <User className="h-5 w-5 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-black">{user.age} years</div>
+            <div className="text-3xl font-bold text-black">{user.age} <span className="text-lg text-gray-600">years</span></div>
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Height</CardTitle>
-            <TrendingUp className="h-4 w-4 text-gray-600" />
+        <Card className="border-2 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-sm font-bold text-gray-600 uppercase tracking-wider">Height</CardTitle>
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+              <TrendingUp className="h-5 w-5 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-black">{user.height} cm</div>
+            <div className="text-3xl font-bold text-black">{user.height} <span className="text-lg text-gray-600">cm</span></div>
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Weight</CardTitle>
-            <TrendingUp className="h-4 w-4 text-gray-600" />
+        <Card className="border-2 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-sm font-bold text-gray-600 uppercase tracking-wider">Weight</CardTitle>
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <TrendingUp className="h-5 w-5 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-black">{user.weight} kg</div>
+            <div className="text-3xl font-bold text-black">{user.weight} <span className="text-lg text-gray-600">kg</span></div>
           </CardContent>
         </Card>
       </div>
