@@ -101,3 +101,73 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Enhance PPL workout tracker with improved Historical Workout badge (show green tick instead of navigation) and focus on premium UI structure and tiles for overall aesthetic improvement"
+
+backend:
+  - task: "Multiple upcoming workouts API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "API endpoint /api/users/{user_id}/upcoming-workouts is working for section-level accordion"
+
+frontend:
+  - task: "Section-level accordion UI for workout sections"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/WorkoutView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Accordion functionality implemented for multiple workout sections, expandable/collapsible"
+        
+  - task: "Historical Workout badge enhancement"
+    implemented: false
+    working: "NA"
+    file: "/app/frontend/src/components/WorkoutView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Need to update Historical Workout badge to show green tick instead of navigation button"
+        
+  - task: "Premium UI structure and tiles"
+    implemented: false
+    working: "NA"
+    file: "/app/frontend/src/components/WorkoutView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Need to enhance overall UI structure and tiles for premium aesthetic across the application"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "Historical Workout badge enhancement"
+    - "Premium UI structure and tiles"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Starting work on Historical Workout badge update to show green tick and premium UI enhancements. Will update frontend components and test thoroughly."
