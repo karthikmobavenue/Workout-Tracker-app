@@ -291,23 +291,35 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                 onClick={() => toggleWorkout(workout.workout_name)}
               >
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-3xl font-bold text-black tracking-tight flex items-center gap-3">
-                      {workout.workout_name}
-                      {isToday && (
-                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          Today
-                        </span>
-                      )}
-                    </h2>
-                    <p className="text-gray-600 mt-2 text-lg">
-                      Week {workout.week} • {new Date(workout.date).toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}
-                    </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <span className="text-white font-bold text-lg">
+                        {workout.workout_type === 'push' ? '💪' : workout.workout_type === 'pull' ? '🏋️' : '🦵'}
+                      </span>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-black tracking-tight flex items-center gap-3 group-hover:text-gray-800 transition-colors">
+                        {workout.workout_name}
+                        {isToday && (
+                          <span className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                            ✨ Today
+                          </span>
+                        )}
+                        {workout.is_completed && (
+                          <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                            ✅ Complete
+                          </span>
+                        )}
+                      </h2>
+                      <p className="text-gray-600 mt-2 text-lg font-medium">
+                        Week {workout.week} • {new Date(workout.date).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <Badge className={`text-sm px-4 py-2 ${getPhaseColor(workout.phase)} border-0 font-semibold`}>
