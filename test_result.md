@@ -180,12 +180,14 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Historical Workout badge enhancement"
+    - "Section-level accordion UI for workout sections"
+    - "Historical Workout badge enhancement"  
     - "Premium UI structure and tiles"
+    - "Dashboard premium UI enhancement"
   stuck_tasks: []
-  test_all: false
+  test_all: true
   test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
-    message: "Starting work on Historical Workout badge update to show green tick and premium UI enhancements. Will update frontend components and test thoroughly."
+    message: "Completed Historical Workout badge updates (now shows green tick) and premium UI enhancements across WorkoutView and Dashboard components. Ready for comprehensive testing."
