@@ -61,36 +61,56 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
       </div>
 
       {/* Program Info */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold text-black">The Ultimate PPL Program</CardTitle>
-          <CardDescription>
-            A 6-week periodized Push/Pull/Legs program designed for maximum muscle growth and strength gains
+      <Card className="mb-12 border-2 shadow-2xl bg-gradient-to-br from-white to-gray-50">
+        <CardHeader className="text-center pb-6">
+          <CardTitle className="text-3xl font-bold text-black mb-3">The Ultimate PPL Program</CardTitle>
+          <CardDescription className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            A scientifically-designed 6-week periodized Push/Pull/Legs program engineered for maximum muscle growth and strength gains through progressive overload
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-black mb-2">Phase 1: Base Hypertrophy</h3>
-                <p className="text-sm text-gray-600">Weeks 1-2: Moderate volume and intensity</p>
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border-2 border-blue-200 shadow-lg hover:shadow-xl transition-all">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                  <span className="text-white text-xl font-bold">1</span>
+                </div>
+                <h3 className="font-bold text-black mb-3 text-lg">Base Hypertrophy</h3>
+                <p className="text-sm text-gray-700 font-medium">Weeks 1-2: Foundation building with moderate volume and intensity</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-black mb-2">Phase 2: Maximum Effort</h3>
-                <p className="text-sm text-gray-600">Weeks 3-4: Lower volume, higher intensity</p>
+              <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl border-2 border-red-200 shadow-lg hover:shadow-xl transition-all">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                  <span className="text-white text-xl font-bold">2</span>
+                </div>
+                <h3 className="font-bold text-black mb-3 text-lg">Maximum Effort</h3>
+                <p className="text-sm text-gray-700 font-medium">Weeks 3-4: Intensity focus with lower volume, higher loads</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-black mb-2">Phase 3: Supercompensation</h3>
-                <p className="text-sm text-gray-600">Weeks 5-6: High volume for peak growth</p>
+              <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border-2 border-green-200 shadow-lg hover:shadow-xl transition-all">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                  <span className="text-white text-xl font-bold">3</span>
+                </div>
+                <h3 className="font-bold text-black mb-3 text-lg">Supercompensation</h3>
+                <p className="text-sm text-gray-700 font-medium">Weeks 5-6: Peak volume for maximum hypertrophy stimulus</p>
               </div>
             </div>
             
-            <div className="text-center pt-4">
-              <p className="text-gray-600 mb-4">
-                The program includes deload weeks for recovery and follows a 6-day rotation:
-                <br />
-                <span className="font-semibold text-black">Push1 → Pull1 → Legs1 → Push2 → Pull2 → Legs2</span>
+            <div className="text-center pt-6 border-t border-gray-200">
+              <p className="text-gray-700 mb-4 text-lg font-medium">
+                The program includes strategic deload weeks for recovery and follows a proven 6-day rotation:
               </p>
+              <div className="inline-flex items-center space-x-2 bg-black text-white px-6 py-3 rounded-xl font-bold text-lg shadow-lg">
+                <span className="text-blue-300">Push1</span>
+                <span className="text-gray-300">→</span>
+                <span className="text-green-300">Pull1</span>
+                <span className="text-gray-300">→</span>
+                <span className="text-red-300">Legs1</span>
+                <span className="text-gray-300">→</span>
+                <span className="text-blue-300">Push2</span>
+                <span className="text-gray-300">→</span>
+                <span className="text-green-300">Pull2</span>
+                <span className="text-gray-300">→</span>
+                <span className="text-red-300">Legs2</span>
+              </div>
             </div>
           </div>
         </CardContent>
