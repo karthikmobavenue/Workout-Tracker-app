@@ -117,49 +117,60 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
       </Card>
 
       {/* Start Program Section */}
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-black">
-            {hasStartedProgram ? 'Program Active' : 'Ready to Begin?'}
+      <Card className="border-2 shadow-2xl bg-gradient-to-br from-white to-gray-50">
+        <CardHeader className="text-center pb-8">
+          <CardTitle className="text-3xl font-bold text-black mb-4">
+            {hasStartedProgram ? '🚀 Program Active' : '💪 Ready to Begin?'}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {hasStartedProgram 
-              ? 'Your PPL journey is underway! Track your workouts and monitor progress.'
-              : 'Start your transformation today with the Ultimate PPL Program'
+              ? 'Your PPL transformation journey is underway! Track your workouts, monitor progress, and achieve your fitness goals.'
+              : 'Start your transformation today with the Ultimate PPL Program. Your journey to a stronger, more muscular physique begins now.'
             }
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">
           {!hasStartedProgram ? (
-            <Button 
-              onClick={onStartProgram}
-              size="lg"
-              className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg"
-              data-testid="start-program-btn"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Start Program
-            </Button>
+            <div className="space-y-6">
+              <Button 
+                onClick={onStartProgram}
+                size="lg"
+                className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white px-12 py-4 text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                data-testid="start-program-btn"
+              >
+                <Play className="mr-3 h-6 w-6" />
+                Start Your Transformation
+              </Button>
+              <p className="text-gray-500 text-sm">Click to begin your 6-week journey</p>
+            </div>
           ) : (
-            <div className="space-y-4">
-              <div className="text-green-600 font-semibold text-lg">
-                ✓ Program Started!
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-2xl shadow-xl">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="font-bold text-lg">Program Active!</span>
               </div>
-              <p className="text-gray-600">
-                Program started on: {new Date(user.program_start_date || Date.now()).toLocaleDateString()}
+              <p className="text-gray-600 font-medium">
+                Started on: <span className="font-bold text-black">{new Date(user.program_start_date || Date.now()).toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}</span>
               </p>
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button 
                   variant="outline" 
-                  className="border-black text-black hover:bg-black hover:text-white"
+                  className="border-2 border-black text-black hover:bg-black hover:text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
                   data-testid="view-calendar-btn"
                   onClick={() => setCurrentView('calendar')}
                 >
-                  <Calendar className="mr-2 h-4 w-4" />
+                  <Calendar className="mr-2 h-5 w-5" />
                   View Calendar
                 </Button>
                 <Button 
-                  className="bg-black hover:bg-gray-800"
+                  className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
                   data-testid="todays-workout-btn"
                   onClick={() => setCurrentView('workout')}
                 >
