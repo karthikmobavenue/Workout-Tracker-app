@@ -371,9 +371,10 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                         </div>
 
                         {/* Exercise Input */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="relative">
+                            <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+                              <Weight className="h-4 w-4" />
                               Weight (kg)
                             </label>
                             <Input
@@ -381,22 +382,24 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                               placeholder="Enter weight"
                               value={exerciseLogs[exercise.name]?.load || ''}
                               onChange={(e) => updateExerciseLog(exercise.name, 'load', e.target.value)}
-                              className="h-10 text-center border-2 focus:border-black"
+                              className="h-12 text-center border-2 focus:border-black text-lg font-bold rounded-xl shadow-md focus:shadow-lg transition-all"
                               step="0.5"
                               min="0"
                             />
                           </div>
                           
                           {exercise.previous_load && (
-                            <div className="bg-white rounded-lg p-3 text-center border">
-                              <p className="text-xs text-gray-600 font-medium">PREVIOUS</p>
-                              <p className="text-lg font-bold text-gray-800">{exercise.previous_load} kg</p>
+                            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center border-2 border-gray-200 shadow-md">
+                              <p className="text-xs text-gray-600 font-bold tracking-wider uppercase">Previous Record</p>
+                              <p className="text-2xl font-bold text-gray-800 mt-1">{exercise.previous_load} kg</p>
+                              <div className="w-8 h-1 bg-gray-300 rounded mx-auto mt-2"></div>
                             </div>
                           )}
                           
-                          <div className="bg-blue-50 rounded-lg p-3 text-center border border-blue-200">
-                            <p className="text-xs text-blue-600 font-medium">TARGET</p>
-                            <p className="text-lg font-bold text-blue-800">{exercise.reps} reps</p>
+                          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center border-2 border-blue-200 shadow-md">
+                            <p className="text-xs text-blue-600 font-bold tracking-wider uppercase">Target Reps</p>
+                            <p className="text-2xl font-bold text-blue-800 mt-1">{exercise.reps} reps</p>
+                            <div className="w-8 h-1 bg-blue-300 rounded mx-auto mt-2"></div>
                           </div>
                         </div>
                       </div>
