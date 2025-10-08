@@ -198,35 +198,52 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
   if (upcomingWorkouts[0] && (upcomingWorkouts[0].is_rest_day || upcomingWorkouts[0].workout_type === 'rest')) {
     return (
       <div className="max-w-4xl mx-auto p-4 py-8">
-        <Card className="border-2 shadow-2xl bg-gradient-to-br from-gray-50 to-gray-100">
-          <CardContent className="text-center py-16">
-            <div className="relative mb-8">
-              <div className="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full mx-auto flex items-center justify-center shadow-lg">
-                <div className="text-6xl">🛌</div>
+        <Card className="border-2 shadow-3xl bg-gradient-to-br from-white via-gray-50 to-gray-100 backdrop-blur-sm">
+          <CardContent className="text-center py-20">
+            <div className="relative mb-10">
+              <div className="w-40 h-40 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-full mx-auto flex items-center justify-center shadow-2xl border-4 border-white">
+                <div className="text-7xl">🛌</div>
               </div>
-              <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white text-sm font-bold">✓</span>
+              <div className="absolute -top-3 -right-3 w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+                </svg>
               </div>
             </div>
-            <h2 className="text-4xl font-bold text-gray-800 mb-4 tracking-tight">Rest Day</h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
-              Time to recover and rebuild! Your muscles grow during rest periods.
+            <h2 className="text-5xl font-bold text-gray-800 mb-6 tracking-tight">Rest & Recovery</h2>
+            <p className="text-xl text-gray-600 mb-10 max-w-lg mx-auto leading-relaxed font-medium">
+              Time to recover and rebuild! Your muscles grow stronger during rest periods. Recovery is just as important as training.
             </p>
-            <div className="bg-white rounded-xl p-6 shadow-lg max-w-sm mx-auto">
-              <div className="text-lg font-semibold text-gray-700 mb-2">Recovery Tips</div>
-              <ul className="text-gray-600 space-y-2 text-left">
-                <li>• Stay hydrated 💧</li>
-                <li>• Get quality sleep 😴</li>
-                <li>• Light stretching 🧘‍♀️</li>
-                <li>• Proper nutrition 🥗</li>
+            <div className="bg-white rounded-2xl p-8 shadow-xl max-w-md mx-auto border border-gray-100">
+              <div className="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+                <span className="text-2xl">💡</span>
+                Recovery Essentials
+              </div>
+              <ul className="text-gray-700 space-y-3 text-left">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  Stay hydrated 💧 (2-3L water)
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                  Get quality sleep 😴 (7-9 hours)
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  Light stretching 🧘‍♀️ (10-15 min)
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                  Proper nutrition 🥗 (protein focus)
+                </li>
               </ul>
             </div>
-            <div className="mt-8">
+            <div className="mt-10">
               <Button 
                 onClick={() => setCurrentView('calendar')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex items-center gap-3"
               >
-                <Calendar className="mr-2 h-5 w-5" />
+                <Calendar className="h-6 w-6" />
                 View Workout Calendar
               </Button>
             </div>
