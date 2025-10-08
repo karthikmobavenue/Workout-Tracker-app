@@ -125,14 +125,14 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
   return (
     <div className="max-w-4xl mx-auto p-4 py-8">
       {/* Header */}
-      <Card className="mb-6">
-        <CardHeader>
+      <Card className="mb-4">
+        <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold text-black flex items-center gap-2">
-              <Calendar className="h-6 w-6" />
+            <CardTitle className="text-xl font-bold text-black flex items-center gap-2">
+              <Calendar className="h-5 w-5" />
               Workout Calendar
             </CardTitle>
-            <div className="text-lg font-semibold text-gray-600">
+            <div className="text-sm font-semibold text-gray-600">
               {calendarData.length > 0 && getMonthName(calendarData[0].date)}
             </div>
           </div>
