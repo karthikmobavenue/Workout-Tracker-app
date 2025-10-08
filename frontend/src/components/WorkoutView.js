@@ -309,10 +309,18 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                      <span className="text-white font-bold text-lg">
-                        {workout.workout_type === 'push' ? '💪' : workout.workout_type === 'pull' ? '🏋️' : '🦵'}
-                      </span>
+                    <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 overflow-hidden">
+                      <img 
+                        src={
+                          workout.workout_type === 'push' 
+                            ? 'https://images.unsplash.com/photo-1534368959876-26bf04f2c947?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxiZW5jaCUyMHByZXNzfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc1OTkzMDk3OHww&ixlib=rb-4.1.0&q=85&w=64&h=64' 
+                            : workout.workout_type === 'pull' 
+                            ? 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxwdWxsJTIwdXBzfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc1OTkzMDk3MXww&ixlib=rb-4.1.0&q=85&w=64&h=64'
+                            : 'https://images.unsplash.com/photo-1712068980119-bdeb8353d16c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHw0fHxsZWclMjBleGVyY2lzZXxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTk5MzA5ODl8MA&ixlib=rb-4.1.0&q=85&w=64&h=64'
+                        }
+                        alt={`${workout.workout_type} workout`}
+                        className="w-full h-full object-cover rounded-lg filter grayscale opacity-80 group-hover:opacity-100 transition-opacity"
+                      />
                     </div>
                     <div>
                       <h2 className="text-3xl font-bold text-black tracking-tight flex items-center gap-3 group-hover:text-gray-800 transition-colors">
