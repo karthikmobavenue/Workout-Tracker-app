@@ -287,7 +287,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
             }`}>
               {/* Workout Header - Clickable */}
               <div 
-                className="cursor-pointer hover:bg-gray-50 transition-colors p-6 border-b border-gray-200"
+                className="cursor-pointer hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 transition-all duration-300 p-8 border-b border-gray-100 group"
                 onClick={() => toggleWorkout(workout.workout_name)}
               >
                 <div className="flex items-center justify-between">
