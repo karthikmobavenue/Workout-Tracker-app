@@ -1,0 +1,93 @@
+{
+  "summary": {
+    "passed": 11,
+    "total": 11,
+    "success_rate": "100.0%"
+  },
+  "results": [
+    {
+      "test": "API Health Check",
+      "success": true,
+      "message": "API is running: PPL Workout Tracker API",
+      "timestamp": "2025-10-08T13:27:41.955013"
+    },
+    {
+      "test": "User Onboarding",
+      "success": true,
+      "message": "User created successfully with ID: 3983d427-96df-45ae-aba3-a21f8bd07452",
+      "timestamp": "2025-10-08T13:27:42.509966"
+    },
+    {
+      "test": "Get User",
+      "success": true,
+      "message": "User retrieved successfully: Alex Johnson",
+      "timestamp": "2025-10-08T13:27:43.050196"
+    },
+    {
+      "test": "Program Start",
+      "success": true,
+      "message": "Program started successfully on 2025-10-08T13:27:43.586350+00:00",
+      "timestamp": "2025-10-08T13:27:43.628251"
+    },
+    {
+      "test": "Current Workout API",
+      "success": true,
+      "message": "Current workout: PULL1 (week 1, phase1) with 7 exercises",
+      "timestamp": "2025-10-08T13:27:44.171274"
+    },
+    {
+      "test": "Upcoming Workouts API",
+      "success": true,
+      "message": "Retrieved 6 upcoming workouts with proper structure",
+      "timestamp": "2025-10-08T13:27:44.714110"
+    },
+    {
+      "test": "Upcoming Workouts - Section Data",
+      "success": true,
+      "message": "Workout sections available: legs, push, pull",
+      "timestamp": "2025-10-08T13:27:44.714140"
+    },
+    {
+      "test": "Specific Day Workout API",
+      "success": true,
+      "message": "Retrieved workout for 2025-10-08: PULL1",
+      "timestamp": "2025-10-08T13:27:45.338516"
+    },
+    {
+      "test": "Specific Day Workout API - Future Date",
+      "success": true,
+      "message": "Successfully retrieved workout for future date 2025-10-11",
+      "timestamp": "2025-10-08T13:27:45.377105"
+    },
+    {
+      "test": "Calendar API",
+      "success": true,
+      "message": "Retrieved 30-day calendar: 26 workout days, 4 rest days",
+      "timestamp": "2025-10-08T13:27:45.917366"
+    },
+    {
+      "test": "Workout Session Saving",
+      "success": true,
+      "message": "Workout session saved successfully: Workout session logged",
+      "timestamp": "2025-10-08T13:27:46.463700"
+    },
+    {
+      "test": "Exercise Progress API - Single Exercise",
+      "success": true,
+      "message": "Retrieved progress for DB Shoulder Press: 1 data points",
+      "timestamp": "2025-10-08T13:27:47.024429"
+    },
+    {
+      "test": "Exercise Progress API - All Exercises",
+      "success": true,
+      "message": "Retrieved progress for 2 exercises",
+      "timestamp": "2025-10-08T13:27:47.059701"
+    },
+    {
+      "test": "Edge Cases",
+      "success": true,
+      "message": "Edge case tests: \u2705 Invalid user ID returns 404; \u2705 Invalid date format returns 400",
+      "timestamp": "2025-10-08T13:27:47.807111"
+    }
+  ]
+}
