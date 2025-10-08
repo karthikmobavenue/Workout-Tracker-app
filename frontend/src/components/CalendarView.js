@@ -261,14 +261,14 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
       </Card>
 
       {/* Program Info */}
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-black">Program Structure</CardTitle>
+      <Card className="mt-4">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-md font-semibold text-black">Program Structure</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             <div>
-              <h4 className="font-semibold text-black mb-2">6-Day Rotation:</h4>
+              <h4 className="font-semibold text-black mb-2 text-sm">6-Day Rotation:</h4>
               <ul className="space-y-1 text-gray-600">
                 <li>• Push1 → Pull1 → Legs1</li>
                 <li>• Push2 → Pull2 → Legs2</li>
@@ -276,7 +276,7 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-black mb-2">6-Week Program:</h4>
+              <h4 className="font-semibold text-black mb-2 text-sm">6-Week Program:</h4>
               <ul className="space-y-1 text-gray-600">
                 <li>• Weeks 1-2: Base Hypertrophy</li>
                 <li>• Week 3: Deload</li>
