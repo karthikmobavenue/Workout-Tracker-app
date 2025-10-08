@@ -343,22 +343,28 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                   <div className="space-y-6">
                     {workout.exercises.map((exercise, exerciseIndex) => (
                       <div key={exerciseIndex} className="bg-white border-2 border-gray-100 rounded-xl p-6 shadow-lg hover:shadow-xl hover:border-gray-200 transition-all duration-300 group">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        <div className="flex items-center justify-between mb-6">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:shadow-xl transition-all">
                               {exerciseIndex + 1}
                             </div>
                             <div>
                               <h3 
-                                className="text-lg font-bold text-gray-800 cursor-pointer hover:text-blue-600 flex items-center gap-2"
+                                className="text-xl font-bold text-gray-800 cursor-pointer hover:text-blue-600 flex items-center gap-3 group-hover:text-blue-700 transition-colors"
                                 onClick={() => handleExerciseClick(exercise.name)}
                               >
                                 {exercise.name}
-                                <BarChart3 className="h-4 w-4 text-gray-400 hover:text-blue-600" />
+                                <div className="p-1 rounded-lg hover:bg-blue-100 transition-colors">
+                                  <BarChart3 className="h-5 w-5 text-gray-400 hover:text-blue-600" />
+                                </div>
                               </h3>
-                              <p className="text-gray-600 text-sm">
+                              <p className="text-gray-600 font-medium mt-1">
                                 {exercise.sets} sets × {exercise.reps} reps
-                                {exercise.previous_load && ` • Previous: ${exercise.previous_load} kg`}
+                                {exercise.previous_load && (
+                                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-bold">
+                                    Previous: {exercise.previous_load} kg
+                                  </span>
+                                )}
                               </p>
                             </div>
                           </div>
