@@ -291,115 +291,97 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
       </div>
 
       {/* Workout Sections */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         {upcomingWorkouts.map((workout, workoutIndex) => {
           const isExpanded = expandedWorkouts[workout.workout_name];
           const isToday = workout.is_today;
           
           return (
-            <Card key={workoutIndex} className={`border-2 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:shadow-3xl hover:-translate-y-1 ${
-              isToday 
-                ? 'border-black bg-gradient-to-br from-gray-50 to-white shadow-black/10' 
-                : 'border-gray-200 bg-gradient-to-br from-white to-gray-50 hover:border-gray-300'
-            }`}>
+            <Card key={workoutIndex} className="border border-gray-200 shadow-sm bg-white">
               {/* Workout Header - Clickable */}
               <div 
-                className="cursor-pointer hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 transition-all duration-300 p-8 border-b border-gray-100 group"
+                className="cursor-pointer hover:bg-gray-50 transition-colors p-4 flex items-center justify-between"
                 onClick={() => toggleWorkout(workout.workout_name)}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 overflow-hidden">
-                      <img 
-                        src={
-                          workout.workout_type === 'push' 
-                            ? 'https://images.unsplash.com/photo-1534368959876-26bf04f2c947?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxiZW5jaCUyMHByZXNzfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc1OTkzMDk3OHww&ixlib=rb-4.1.0&q=85&w=64&h=64' 
-                            : workout.workout_type === 'pull' 
-                            ? 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxwdWxsJTIwdXBzfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc1OTkzMDk3MXww&ixlib=rb-4.1.0&q=85&w=64&h=64'
-                            : 'https://images.unsplash.com/photo-1712068980119-bdeb8353d16c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHw0fHxsZWclMjBleGVyY2lzZXxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTk5MzA5ODl8MA&ixlib=rb-4.1.0&q=85&w=64&h=64'
-                        }
-                        alt={`${workout.workout_type} workout`}
-                        className="w-full h-full object-cover rounded-lg filter grayscale opacity-80 group-hover:opacity-100 transition-opacity"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-black tracking-tight flex items-center gap-3 group-hover:text-gray-800 transition-colors">
+                <div className="flex items-center gap-4">
+                  {/* Colored Icon Box */}
+                  <div className={`w-16 h-16 rounded-lg flex items-center justify-center ${
+                    workout.workout_type === 'push' 
+                      ? 'bg-red-100' 
+                      : workout.workout_type === 'pull' 
+                      ? 'bg-blue-100' 
+                      : 'bg-green-100'
+                  }`}>
+                    <span className={`text-2xl font-bold ${
+                      workout.workout_type === 'push' 
+                        ? 'text-red-600' 
+                        : workout.workout_type === 'pull' 
+                        ? 'text-blue-600' 
+                        : 'text-green-600'
+                    }`}>
+                      {workout.workout_type === 'push' ? '↑' : workout.workout_type === 'pull' ? '↓' : '🏃'}
+                    </span>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <h2 className="text-xl font-bold text-black">
                         {workout.workout_name}
-                        {isToday && (
-                          <span className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                            ✨ Today
-                          </span>
-                        )}
-                        {workout.is_completed && (
-                          <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                            ✅ Complete
-                          </span>
-                        )}
                       </h2>
-                      <p className="text-gray-600 mt-2 text-lg font-medium">
-                        Week {workout.week} • {new Date(workout.date).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}
-                      </p>
+                      {isToday && (
+                        <span className="bg-red-500 text-white px-3 py-1 rounded-md text-sm font-bold">
+                          TODAY
+                        </span>
+                      )}
+                      <Badge className={`text-xs px-2 py-1 ${getPhaseColor(workout.phase)} border-0 font-semibold`}>
+                        {getPhaseName(workout.phase)}
+                      </Badge>
                     </div>
+                    <p className="text-gray-500 text-sm">
+                      {new Date(workout.date).toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <Badge className={`text-sm px-5 py-3 ${getPhaseColor(workout.phase)} border-0 font-bold rounded-xl shadow-md`}>
-                      {getPhaseName(workout.phase)}
-                    </Badge>
-                    {/* Expand/Collapse Icon */}
-                    <div className={`w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700 transition-all duration-300 ${isExpanded ? 'rotate-180 bg-black text-white' : ''}`}>
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
+                </div>
+                
+                {/* Right Arrow */}
+                <div className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </div>
 
               {/* Workout Details - Collapsible */}
-              <div className={`transition-all duration-300 ease-in-out ${
-                isExpanded ? 'max-h-none opacity-100' : 'max-h-0 opacity-0'
-              } overflow-hidden`}>
-                <div className="p-8 bg-gradient-to-b from-white to-gray-50">
-                  <div className="space-y-6">
+              {isExpanded && (
+                <div className="border-t border-gray-100 p-4 bg-gray-50">
+                  <div className="space-y-4">
                     {workout.exercises.map((exercise, exerciseIndex) => (
-                      <div key={exerciseIndex} className="bg-white border-2 border-gray-100 rounded-xl p-6 shadow-lg hover:shadow-xl hover:border-gray-200 transition-all duration-300 group">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:shadow-xl transition-all">
-                              {exerciseIndex + 1}
-                            </div>
-                            <div>
-                              <h3 
-                                className="text-xl font-bold text-gray-800 cursor-pointer hover:text-blue-600 flex items-center gap-3 group-hover:text-blue-700 transition-colors"
-                                onClick={() => handleExerciseClick(exercise.name)}
-                              >
-                                {exercise.name}
-                                <div className="p-1 rounded-lg hover:bg-blue-100 transition-colors">
-                                  <BarChart3 className="h-5 w-5 text-gray-400 hover:text-blue-600" />
-                                </div>
-                              </h3>
-                              <p className="text-gray-600 font-medium mt-1">
-                                {exercise.sets} sets × {exercise.reps} reps
-                                {exercise.previous_load && (
-                                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-bold">
-                                    Previous: {exercise.previous_load} kg
-                                  </span>
-                                )}
-                              </p>
-                            </div>
+                      <div key={exerciseIndex} className="bg-white border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-4">
+                          <div>
+                            <h3 
+                              className="text-lg font-semibold text-gray-800 cursor-pointer hover:text-blue-600 flex items-center gap-2"
+                              onClick={() => handleExerciseClick(exercise.name)}
+                            >
+                              {exercise.name}
+                              <BarChart3 className="h-4 w-4 text-gray-400 hover:text-blue-600" />
+                            </h3>
+                            <p className="text-gray-600 text-sm">
+                              {exercise.sets} sets × {exercise.reps} reps
+                              {exercise.previous_load && ` • Previous: ${exercise.previous_load} kg`}
+                            </p>
                           </div>
                         </div>
 
                         {/* Exercise Input */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="relative">
-                            <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-                              <Weight className="h-4 w-4" />
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                               Weight (kg)
                             </label>
                             <Input
@@ -407,37 +389,35 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                               placeholder="Enter weight"
                               value={exerciseLogs[exercise.name]?.load || ''}
                               onChange={(e) => updateExerciseLog(exercise.name, 'load', e.target.value)}
-                              className="h-12 text-center border-2 focus:border-black text-lg font-bold rounded-xl shadow-md focus:shadow-lg transition-all"
+                              className="h-10 text-center border-2 focus:border-black"
                               step="0.5"
                               min="0"
                             />
                           </div>
                           
                           {exercise.previous_load && (
-                            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center border-2 border-gray-200 shadow-md">
-                              <p className="text-xs text-gray-600 font-bold tracking-wider uppercase">Previous Record</p>
-                              <p className="text-2xl font-bold text-gray-800 mt-1">{exercise.previous_load} kg</p>
-                              <div className="w-8 h-1 bg-gray-300 rounded mx-auto mt-2"></div>
+                            <div className="bg-gray-100 rounded-lg p-3 text-center border">
+                              <p className="text-xs text-gray-600 font-medium">PREVIOUS</p>
+                              <p className="text-lg font-bold text-gray-800">{exercise.previous_load} kg</p>
                             </div>
                           )}
                           
-                          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center border-2 border-blue-200 shadow-md">
-                            <p className="text-xs text-blue-600 font-bold tracking-wider uppercase">Target Reps</p>
-                            <p className="text-2xl font-bold text-blue-800 mt-1">{exercise.reps} reps</p>
-                            <div className="w-8 h-1 bg-blue-300 rounded mx-auto mt-2"></div>
+                          <div className="bg-blue-50 rounded-lg p-3 text-center border border-blue-200">
+                            <p className="text-xs text-blue-600 font-medium">TARGET</p>
+                            <p className="text-lg font-bold text-blue-800">{exercise.reps} reps</p>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Save Button for each workout */}
+                  {/* Save Button - Inside the expanded section */}
                   {isToday && (
-                    <div className="flex justify-center mt-8 pt-6 border-t border-gray-200">
+                    <div className="mt-6">
                       <Button 
                         onClick={() => saveWorkout(workout)}
                         disabled={saving}
-                        className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white px-12 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                        className="w-full bg-black hover:bg-gray-800 text-white py-4 text-lg font-semibold rounded-lg flex items-center justify-center gap-2"
                       >
                         {saving ? (
                           <>
@@ -446,7 +426,9 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                           </>
                         ) : (
                           <>
-                            <Save className="h-5 w-5" />
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
                             Complete {workout.workout_name}
                           </>
                         )}
@@ -454,7 +436,7 @@ const WorkoutView = ({ user, setCurrentView, selectedDate, setSelectedDate }) =>
                     </div>
                   )}
                 </div>
-              </div>
+              )}
             </Card>
           );
         })}
