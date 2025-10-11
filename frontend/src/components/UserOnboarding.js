@@ -52,6 +52,70 @@ const UserOnboarding = ({ onUserCreated }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const validatePhone = () => {
+    const phoneRegex = /^\+?[\d\s\-\(\)]{10,15}$/;
+    if (!formData.phone.trim()) {
+      setErrors({ phone: 'Phone number is required' });
+      return false;
+    }
+    if (!phoneRegex.test(formData.phone)) {
+      setErrors({ phone: 'Please enter a valid phone number' });
+      return false;
+    }
+    setErrors({});
+    return true;
+  };
+
+  const sendOtp = async () => {
+    if (!validatePhone()) return;
+    
+    setLoading(true);
+    try {
+      // Generate a random 6-digit OTP for simulation
+      const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      setSentOtp(generatedOtp);
+      
+      // In a real app, you would send this OTP via SMS
+      console.log('OTP sent:', generatedOtp);
+      alert(`OTP sent to ${formData.phone}: ${generatedOtp}`); // For demo purposes
+      
+      setStep('otp');
+      setOtpTimer(60); // 60 seconds timer
+      
+      // Start countdown
+      const timer = setInterval(() => {
+        setOtpTimer(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      setErrors({ phone: 'Failed to send OTP. Please try again.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const verifyOtp = () => {
+    if (!otp.trim()) {
+      setErrors({ otp: 'Please enter the OTP' });
+      return;
+    }
+    
+    if (otp !== sentOtp) {
+      setErrors({ otp: 'Invalid OTP. Please try again.' });
+      return;
+    }
+    
+    setErrors({});
+    setStep('verified');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
