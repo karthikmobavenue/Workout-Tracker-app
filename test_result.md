@@ -336,6 +336,90 @@ metadata:
       - working: true
         agent: "testing"
         comment: "Historical Workout badge enhancement tested successfully. When navigating from calendar dates, the 'Historical Workout' header displays with green checkmark icon as required. Proper date information shown and 'Back to Current Program' button functionality working correctly."
+        
+  - task: "Navigation change to 'Home' instead of 'Dashboard'"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Navigation.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Navigation change tested successfully. Bottom navigation now shows 'Home' instead of 'Dashboard' as requested. Navigation functionality working correctly with proper active state styling."
+        
+  - task: "Dashboard UI improvements with Good Morning header and profile avatar"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Dashboard UI improvements tested successfully. 'Good Morning, Alex' header displays correctly with profile avatar showing first letter 'A'. User stats cards (Age: 28, Height: 175cm, Weight: 75kg) display with colored icons (blue for age, green for height, purple for weight). All styling and layout working perfectly."
+        
+  - task: "Current Program section with accurate progress calculation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Current Program section tested successfully. Shows accurate progress calculation (4.8% Complete, 2/42 workouts) for users who have started the program. Progress bar and completion tracking working correctly. Week indicator shows 'Week 1 of 6' appropriately."
+        
+  - task: "Start Your Transformation button redirects to Calendar"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "'Start Your Transformation' button tested successfully. Button correctly redirects to Calendar page instead of starting the program directly. Navigation and redirect functionality working as expected for new users who haven't started the program."
+        
+  - task: "Training Phases section with proper phase indicators"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Training Phases section tested successfully. All three phases (Base Hypertrophy, Max Effort, Supercompensation) display with proper indicators and styling. Phase 1 shows completed with green checkmark, Phase 2 shows current with play icon, Phase 3 shows upcoming with number indicator. Visual hierarchy and styling working correctly."
+        
+  - task: "6-Day Rotation visual display"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "6-Day Rotation visual display tested successfully. Shows Push (red), Pull (blue), and Legs (green) indicators with proper colored circles and arrows between them. Visual flow and styling working correctly to represent the workout rotation cycle."
+        
+  - task: "Phone verification onboarding multi-step process"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/UserOnboarding.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Phone verification onboarding tested successfully. Multi-step process working: 1) Basic user info form with 'Continue to Verification' button, 2) Phone number entry with 'Send OTP' button, 3) OTP verification with 6-digit input and timer, 4) Phone verified screen with 'Create Profile' button. OTP simulation shows alert with generated OTP. Back navigation, timer countdown, and resend functionality all working correctly."
 
 test_plan:
   current_focus: []
