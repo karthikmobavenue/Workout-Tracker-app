@@ -205,43 +205,43 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
                         </span>
                       </div>
                       
-                      <div className="space-y-1">
+                      <div className="space-y-2">
                         {day.is_rest_day ? (
                           <div className="flex items-center justify-center">
-                            <Badge 
-                              variant="secondary" 
-                              className="text-xs bg-gray-100 text-gray-600 w-full justify-center font-medium py-1"
-                            >
-                              🛌 Rest
-                            </Badge>
+                            <div className="bg-gray-400 text-white px-2 py-1 rounded text-xs font-bold">
+                              R
+                            </div>
                           </div>
                         ) : day.phase?.includes('deload') ? (
                           <div className="flex items-center justify-center">
-                            <Badge 
-                              variant="secondary" 
-                              className="text-xs bg-orange-100 text-orange-700 w-full justify-center font-medium py-1"
-                            >
-                              💪 Deload
-                            </Badge>
+                            <div className="bg-orange-400 text-white px-2 py-1 rounded text-xs font-bold">
+                              D
+                            </div>
                           </div>
                         ) : (
-                          <>
-                            <div className="flex items-center justify-center gap-1">
-                              <Badge 
-                                className={`text-xs flex-1 justify-center font-semibold py-1 ${getWorkoutTypeColor(day.workout_type, day.is_rest_day, day.is_completed)}`}
-                              >
-                                {day.workout_name}
-                              </Badge>
-                              {day.is_completed && (
-                                <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                                  <span className="text-white text-xs">✓</span>
-                                </div>
-                              )}
+                          <div className="flex items-center justify-center">
+                            <div className={`text-white px-2 py-1 rounded text-xs font-bold ${
+                              day.workout_type === 'push' 
+                                ? 'bg-red-500' 
+                                : day.workout_type === 'pull' 
+                                ? 'bg-blue-500' 
+                                : 'bg-green-500'
+                            }`}>
+                              {day.workout_type === 'push' ? 'P' : day.workout_type === 'pull' ? 'P' : 'L'}
                             </div>
-                            <div className="text-xs text-gray-400 text-center font-medium">
-                              Week {day.week}
+                            {day.is_completed && (
+                              <div className="ml-1 w-3 h-3 bg-green-600 rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs">✓</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {isToday(day.date) && (
+                          <div className="text-center">
+                            <div className="bg-black text-white px-2 py-1 rounded text-xs font-bold">
+                              TODAY
                             </div>
-                          </>
+                          </div>
                         )}
                       </div>
                     </div>
