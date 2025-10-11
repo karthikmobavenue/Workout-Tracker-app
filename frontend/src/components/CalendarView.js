@@ -142,22 +142,22 @@ const CalendarView = ({ user, setCurrentView, setSelectedDate }) => {
       {/* Legend */}
       <Card className="mb-4">
         <CardContent className="pt-4 pb-4">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-6 justify-center">
             <div className="flex items-center gap-2">
-              <Badge className="bg-red-100 text-red-700 border-red-200 text-xs px-2 py-1">Push</Badge>
-              <span className="text-xs text-gray-600">Chest, Shoulders, Triceps</span>
+              <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">P</div>
+              <span className="text-sm text-gray-700 font-medium">Push</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs px-2 py-1">Pull</Badge>
-              <span className="text-xs text-gray-600">Back, Biceps</span>
+              <div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold">P</div>
+              <span className="text-sm text-gray-700 font-medium">Pull</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-green-100 text-green-700 border-green-200 text-xs px-2 py-1">Legs</Badge>
-              <span className="text-xs text-gray-600">Quads, Hamstrings, Glutes</span>
+              <div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">L</div>
+              <span className="text-sm text-gray-700 font-medium">Legs</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs px-2 py-1">Rest</Badge>
-              <span className="text-xs text-gray-600">Recovery Day</span>
+              <div className="bg-gray-400 text-white px-2 py-1 rounded text-xs font-bold">R</div>
+              <span className="text-sm text-gray-700 font-medium">Rest</span>
             </div>
           </div>
         </CardContent>
