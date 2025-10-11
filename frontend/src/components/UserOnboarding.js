@@ -9,6 +9,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const UserOnboarding = ({ onUserCreated }) => {
+  const [step, setStep] = useState('form'); // 'form', 'phone', 'otp', 'verified'
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -16,10 +17,14 @@ const UserOnboarding = ({ onUserCreated }) => {
     height: '',
     weight: '',
     gender: '',
-    rest_day: ''
+    rest_day: '',
+    phone: ''
   });
+  const [otp, setOtp] = useState('');
+  const [sentOtp, setSentOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [otpTimer, setOtpTimer] = useState(0);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
