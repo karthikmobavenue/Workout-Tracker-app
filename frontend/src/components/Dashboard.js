@@ -84,9 +84,9 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
             {/* Progress Bar */}
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full" style={{width: '33%'}}></div>
+                <div className="bg-green-500 h-2 rounded-full" style={{width: `${progressPercentage}%`}}></div>
               </div>
-              <p className="text-sm text-gray-600 mt-2">33% Complete</p>
+              <p className="text-sm text-gray-600 mt-2">{progressPercentage}% Complete ({completedWorkouts}/{totalWorkouts} workouts)</p>
             </div>
           </CardContent>
         </Card>
