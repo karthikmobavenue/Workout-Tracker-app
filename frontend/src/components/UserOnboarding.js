@@ -284,15 +284,138 @@ const UserOnboarding = ({ onUserCreated }) => {
               <p className="text-red-500 text-sm text-center">{errors.submit}</p>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full bg-black hover:bg-gray-800"
-              data-testid="create-profile-btn"
-              disabled={loading}
-            >
-              {loading ? 'Creating Profile...' : 'Create Profile'}
-            </Button>
-          </form>
+              <Button 
+                type="submit" 
+                className="w-full bg-black hover:bg-gray-800"
+                data-testid="continue-btn"
+                disabled={loading}
+              >
+                Continue to Verification
+              </Button>
+            </form>
+          )}
+
+          {step === 'phone' && (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+1 234 567 8900"
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  className={errors.phone ? 'border-red-500' : ''}
+                  disabled={loading}
+                />
+                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+              </div>
+
+              <div className="flex gap-2">
+                <Button 
+                  onClick={() => setStep('form')}
+                  variant="outline"
+                  className="flex-1"
+                  disabled={loading}
+                >
+                  Back
+                </Button>
+                <Button 
+                  onClick={sendOtp}
+                  className="flex-1 bg-black hover:bg-gray-800"
+                  disabled={loading}
+                >
+                  {loading ? 'Sending...' : 'Send OTP'}
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {step === 'otp' && (
+            <div className="space-y-4">
+              <div className="text-center mb-4">
+                <p className="text-sm text-gray-600">
+                  OTP sent to {formData.phone}
+                </p>
+                {otpTimer > 0 && (
+                  <p className="text-xs text-gray-500">
+                    Resend OTP in {otpTimer}s
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="otp">Enter 6-digit OTP</Label>
+                <Input
+                  id="otp"
+                  type="text"
+                  placeholder="123456"
+                  maxLength="6"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                  className={`text-center text-lg tracking-widest ${errors.otp ? 'border-red-500' : ''}`}
+                />
+                {errors.otp && <p className="text-red-500 text-sm mt-1">{errors.otp}</p>}
+              </div>
+
+              <div className="flex gap-2">
+                <Button 
+                  onClick={() => {
+                    setStep('phone');
+                    setOtp('');
+                    setErrors({});
+                  }}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Back
+                </Button>
+                <Button 
+                  onClick={verifyOtp}
+                  className="flex-1 bg-black hover:bg-gray-800"
+                  disabled={otp.length !== 6}
+                >
+                  Verify OTP
+                </Button>
+              </div>
+
+              {otpTimer === 0 && (
+                <Button 
+                  onClick={sendOtp}
+                  variant="outline"
+                  className="w-full"
+                  disabled={loading}
+                >
+                  Resend OTP
+                </Button>
+              )}
+            </div>
+          )}
+
+          {step === 'verified' && (
+            <div className="space-y-4 text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              
+              <h3 className="text-lg font-semibold text-black">Phone Verified!</h3>
+              <p className="text-gray-600">Your phone number has been successfully verified.</p>
+              
+              <Button 
+                onClick={handleFinalSubmit}
+                className="w-full bg-black hover:bg-gray-800"
+                disabled={loading}
+              >
+                {loading ? 'Creating Profile...' : 'Create Profile'}
+              </Button>
+            </div>
+          )}
+
+          {errors.submit && (
+            <p className="text-red-500 text-sm text-center mt-4">{errors.submit}</p>
+          )}
         </CardContent>
       </Card>
     </div>
