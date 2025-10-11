@@ -301,6 +301,42 @@ metadata:
   test_sequence: 1
   run_ui: true
 
+  - task: "UXPilot.ai UI improvements - Workout View"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/WorkoutView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "UXPilot.ai workout view improvements tested successfully. Found 12 colored icon boxes (Red: 2, Blue: 8, Green: 2) for workout types with proper color coding. Accordion functionality working perfectly - tested 6 workout sections with proper expand/collapse behavior. Save button correctly placed WITHIN expanded sections as required. Right arrows present in workout headers. Clean card design with proper spacing implemented."
+        
+  - task: "UXPilot.ai UI improvements - Calendar View"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/CalendarView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "UXPilot.ai calendar view improvements tested successfully. Simple colored badges (P, L, R) implemented correctly with 34 colored calendar badges total. Clean legend with 4 colored boxes (Red, Blue, Green, Gray) matching calendar badges. Calendar date navigation working - clicking workout dates successfully navigates to historical workout view with green checkmark icon displayed correctly."
+        
+  - task: "UXPilot.ai UI improvements - Historical Workout Badge"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/WorkoutView.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Historical Workout badge enhancement tested successfully. When navigating from calendar dates, the 'Historical Workout' header displays with green checkmark icon as required. Proper date information shown and 'Back to Current Program' button functionality working correctly."
+
 test_plan:
   current_focus: []
   stuck_tasks: []
@@ -314,3 +350,5 @@ agent_communication:
     message: "Comprehensive backend API testing completed successfully. All 8 key backend APIs tested and working correctly: User onboarding, Program start, Current workout, Upcoming workouts (for section-level accordion), Specific day workout (for historical viewing), Calendar (30-day view), Workout session saving, and Exercise progress APIs. All endpoints return proper data structures, handle edge cases correctly, and maintain data consistency. Date handling and workout progression logic working as expected. Backend is fully functional and ready for production use."
   - agent: "testing"
     message: "COMPREHENSIVE FRONTEND TESTING COMPLETED SUCCESSFULLY. All requested features tested and verified working: 1) Calendar Date Alignment - All dates properly aligned with correct weekday headers, October 8th correctly under Wednesday. 2) Improved UI with smaller fonts - 163 elements using text-xs for better visual hierarchy. 3) Historical Workout Badge - Green checkmark displays correctly when viewing past workouts. 4) Premium UI enhancements - 18 gradient elements, 20 shadow elements, 4 premium cards with enhanced styling. 5) Workout icons integration - 6 workout icons with grayscale styling for black/white aesthetic. 6) Section-level accordion UI - 49 accordion sections with proper expand/collapse functionality, 43 exercises visible after expansion. All core functionality working perfectly with no console errors detected."
+  - agent: "testing"
+    message: "UXPilot.ai UI IMPROVEMENTS TESTING COMPLETED SUCCESSFULLY. All requested improvements verified: 1) Workout View - Colored icon boxes working (12 total: Red for Push, Blue for Pull, Green for Legs), accordion functionality perfect with 6 sections, save buttons correctly placed WITHIN expanded sections. 2) Calendar View - Simple P/L/R badges implemented (34 total), clean legend with 4 colored boxes, date navigation working perfectly. 3) Historical Workout Badge - Green checkmark displays correctly when viewing past workouts from calendar. 4) Overall UI Flow - Complete user journey tested successfully with no console errors. Premium styling elements present (2 gradients, 6 shadows). All UXPilot.ai design requirements successfully implemented and tested."
