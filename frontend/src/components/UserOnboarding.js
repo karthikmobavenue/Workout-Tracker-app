@@ -116,10 +116,16 @@ const UserOnboarding = ({ onUserCreated }) => {
     setStep('verified');
   };
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     
     if (!validateForm()) return;
+    
+    setStep('phone');
+  };
+
+  const handleFinalSubmit = async () => {
+    if (step !== 'verified') return;
     
     setLoading(true);
     try {
