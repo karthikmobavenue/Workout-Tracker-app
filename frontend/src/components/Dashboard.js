@@ -175,7 +175,7 @@ const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
         <Card className="border border-gray-200 shadow-sm">
           <CardContent className="p-6 text-center">
             <Button 
-              onClick={onStartProgram}
+              onClick={() => setCurrentView('calendar')}
               className="w-full bg-black hover:bg-gray-800 text-white py-4 text-lg font-semibold rounded-lg"
               data-testid="start-program-btn"
             >
