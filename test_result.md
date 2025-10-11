@@ -426,6 +426,7 @@ test_plan:
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
+  comprehensive_ppl_improvements_tested: true
 
 agent_communication:
   - agent: "main"
