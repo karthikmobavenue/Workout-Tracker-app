@@ -153,11 +153,15 @@ const UserOnboarding = ({ onUserCreated }) => {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-black">PPL Workout Tracker</CardTitle>
           <CardDescription className="text-gray-600">
-            Let's get you started with your Push/Pull/Legs program
+            {step === 'form' && "Let's get you started with your Push/Pull/Legs program"}
+            {step === 'phone' && "Please verify your phone number"}
+            {step === 'otp' && "Enter the OTP sent to your phone"}
+            {step === 'verified' && "Phone verified! Creating your profile..."}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {step === 'form' && (
+            <form onSubmit={handleFormSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="first_name">First Name</Label>
