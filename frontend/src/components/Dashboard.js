@@ -5,6 +5,12 @@ import { User, Calendar, TrendingUp, Play } from 'lucide-react';
 
 const Dashboard = ({ user, onStartProgram, setCurrentView }) => {
   const hasStartedProgram = user.program_start_date;
+  
+  // Calculate actual progress based on completed workouts
+  const totalWorkouts = 42; // 6 weeks * 7 days = 42 days total program
+  const completedWorkouts = 2; // This should come from actual completed workout data
+  const progressPercentage = hasStartedProgram ? Math.round((completedWorkouts / totalWorkouts) * 100 * 10) / 10 : 0;
+  const currentWeek = hasStartedProgram ? Math.ceil((completedWorkouts + 1) / 7) : 1;
 
   return (
     <div className="max-w-4xl mx-auto p-4 py-6 pb-20">
