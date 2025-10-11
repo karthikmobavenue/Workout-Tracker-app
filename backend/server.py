@@ -55,6 +55,7 @@ class UserCreate(BaseModel):
     height: float
     weight: float
     gender: Gender
+    phone: str
     rest_day: int  # 0=Sunday, 1=Monday, 2=Tuesday, etc.
 
 class Exercise(BaseModel):
