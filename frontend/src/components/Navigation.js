@@ -4,7 +4,7 @@ import { Home, Calendar, TrendingUp, Dumbbell } from 'lucide-react';
 
 const Navigation = ({ currentView, setCurrentView, user }) => {
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
+    { id: 'dashboard', label: 'Home', icon: Home },
     { id: 'workout', label: 'Workout', icon: Dumbbell },
     { id: 'calendar', label: 'Calendar', icon: Calendar },
     { id: 'progress', label: 'Progress', icon: TrendingUp },
