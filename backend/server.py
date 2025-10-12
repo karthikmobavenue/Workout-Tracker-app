@@ -15,15 +15,26 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
+import certifi
+from motor.motor_asyncio import AsyncIOMotorClient
+
 mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+
+# Use verified CA cert for Render’s SSL handshake
 try:
-    # Test connection
+    client = AsyncIOMotorClient(
+        mongo_url,
+        tls=True,
+        tlsCAFile=certifi.where(),
+        serverSelectionTimeoutMS=10000
+    )
+    db = client[os.environ['DB_NAME']]
+    # Test the connection
     client.admin.command('ping')
-    print("✅ MongoDB connection successful!")
+    print("✅ MongoDB connection successful (TLS verified with certifi)!")
 except Exception as e:
     print("❌ MongoDB connection failed:", e)
+
 # Create the main app without a prefix
 app = FastAPI()
 
