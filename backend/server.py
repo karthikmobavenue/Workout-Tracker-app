@@ -15,33 +15,9 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-import certifi  # Add this import near the top (below other imports)
-
-import certifi
-from pymongo import MongoClient
-from motor.motor_asyncio import AsyncIOMotorClient
-
 mongo_url = os.environ['MONGO_URL']
-
-# Force secure TLS handshake
-client = AsyncIOMotorClient(
-    mongo_url,
-    tls=True,
-    tlsCAFile=certifi.where(),
-    serverSelectionTimeoutMS=5000
-)
-
-try:
-    # Test connection explicitly
-    client.admin.command("ping")
-    print("✅ MongoDB connected successfully over TLS")
-except Exception as e:
-    print("❌ MongoDB connection failed:", e)
-
+client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
-
-print("✅ Connected to MongoDB (TLS enabled)")
-
 
 # Create the main app without a prefix
 app = FastAPI()
