@@ -226,20 +226,66 @@ body {
   }
 }
 
-/* Loading spinner */
+/* Spinner for loading states */
 .spinner {
-  border: 3px solid #f0f0f0;
-  border-top: 3px solid #000000;
+  border: 4px solid #f3f3f3;
   border-radius: 50%;
+  border-top: 4px solid #333;
   width: 40px;
   height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Mobile-specific styles */
+.mobile-app {
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.mobile-app input,
+.mobile-app textarea,
+.mobile-app select {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Prevent zoom on input focus for mobile */
+@media screen and (max-width: 767px) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area insets for devices with notches */
+.mobile-app {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Enhance touch targets for mobile */
+.mobile-app button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Smooth scrolling */
+.mobile-app * {
+  scroll-behavior: smooth;
 }
 
 /* Utility classes */
