@@ -75,17 +75,19 @@ function App() {
   };
 
   return (
-    <div className="App min-h-screen bg-white text-black">
-      <Navigation 
-        currentView={currentView} 
-        setCurrentView={setCurrentView}
-        user={user}
-      />
-      <main className="pb-16">
-        {renderCurrentView()}
-      </main>
-      <Toaster />
-    </div>
+    <MobileEnhancements>
+      <div className="App min-h-screen bg-white text-black">
+        <Navigation 
+          currentView={currentView} 
+          setCurrentView={setCurrentView}
+          user={user}
+        />
+        <main className="pb-16">
+          {renderCurrentView()}
+        </main>
+        <Toaster />
+      </div>
+    </MobileEnhancements>
   );
 }
 
