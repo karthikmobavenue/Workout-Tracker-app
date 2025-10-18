@@ -102,3 +102,7 @@ frontend/node_modules/.cache/default-development/3.pack
 *.env.*
 android-sdk.zip
 ppl-workout-tracker-mobile-complete.tar.gz
+-e 
+# Environment files
+*.env
+*.env.*
