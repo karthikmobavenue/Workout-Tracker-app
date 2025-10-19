@@ -20,7 +20,7 @@ const Navigation = ({ currentView, setCurrentView, user }) => {
         {navItems.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
-            onClick={() => setCurrentView(id)}
+            onClick={() => handleNavClick(id)}
             className={`flex flex-col items-center space-y-1 px-2 py-3 transition-all duration-200 ${
               currentView === id 
                 ? 'text-gray-900' 
