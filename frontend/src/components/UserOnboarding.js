@@ -300,6 +300,11 @@ const UserOnboarding = ({ onUserCreated }) => {
               >
                 {loading ? 'Creating Profile...' : 'Create Profile'}
               </button>
+              
+              {/* Privacy Notice */}
+              <p className="text-center text-xs text-gray-500 mt-4">
+                By continuing, you agree to our Terms & Privacy Policy
+              </p>
             </form>
           )}
 
