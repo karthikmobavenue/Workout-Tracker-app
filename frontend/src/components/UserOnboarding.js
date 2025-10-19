@@ -148,18 +148,25 @@ const UserOnboarding = ({ onUserCreated }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-black">PPL Workout Tracker</CardTitle>
-          <CardDescription className="text-gray-600">
-            {step === 'form' && "Let's get you started with your Push/Pull/Legs program"}
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        {/* Header with Icon */}
+        <div className="text-center mb-8">
+          <div className="w-20 h-12 bg-gray-800 rounded-xl mx-auto mb-4 flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14 4.14 5.57 2 7.71 3.43 9.14 2 10.57 3.43 12 7 15.57 15.57 7 12 3.43 13.43 2 14.86 3.43 16.29 2 18.43 4.14 19.86 2.71 21.29 4.14 19.86 5.57 22 7.71 20.57 9.14 22 10.57 20.57 12 22 13.43 20.57 14.86z"/>
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">PPL Workout Tracker</h1>
+          <p className="text-gray-600 text-base">
+            {step === 'form' && "Let's get you started with your Push/Pull/Legs program."}
             {step === 'phone' && "Please verify your phone number"}
             {step === 'otp' && "Enter the OTP sent to your phone"}
             {step === 'verified' && "Phone verified! Creating your profile..."}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        
+        <div>
           {step === 'form' && (
             <form onSubmit={handleFormSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
