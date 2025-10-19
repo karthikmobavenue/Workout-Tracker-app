@@ -168,137 +168,138 @@ const UserOnboarding = ({ onUserCreated }) => {
         
         <div>
           {step === 'form' && (
-            <form onSubmit={handleFormSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="first_name">First Name</Label>
-                <Input
-                  id="first_name"
-                  data-testid="first-name-input"
-                  value={formData.first_name}
-                  onChange={(e) => handleInputChange('first_name', e.target.value)}
-                  className={errors.first_name ? 'border-red-500' : ''}
-                  disabled={loading}
-                />
-                {errors.first_name && <p className="text-red-500 text-sm mt-1">{errors.first_name}</p>}
+            <form onSubmit={handleFormSubmit} className="space-y-6">
+              {/* Name Fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                  <input
+                    type="text"
+                    placeholder="John"
+                    value={formData.first_name}
+                    onChange={(e) => handleInputChange('first_name', e.target.value)}
+                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent ${errors.first_name ? 'border-red-500' : ''}`}
+                    disabled={loading}
+                  />
+                  {errors.first_name && <p className="text-red-500 text-xs mt-1">{errors.first_name}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Doe"
+                    value={formData.last_name}
+                    onChange={(e) => handleInputChange('last_name', e.target.value)}
+                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent ${errors.last_name ? 'border-red-500' : ''}`}
+                    disabled={loading}
+                  />
+                  {errors.last_name && <p className="text-red-500 text-xs mt-1">{errors.last_name}</p>}
+                </div>
               </div>
               
-              <div>
-                <Label htmlFor="last_name">Last Name</Label>
-                <Input
-                  id="last_name"
-                  data-testid="last-name-input"
-                  value={formData.last_name}
-                  onChange={(e) => handleInputChange('last_name', e.target.value)}
-                  className={errors.last_name ? 'border-red-500' : ''}
-                  disabled={loading}
-                />
-                {errors.last_name && <p className="text-red-500 text-sm mt-1">{errors.last_name}</p>}
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="age">Age</Label>
-              <Input
-                id="age"
-                type="number"
-                data-testid="age-input"
-                value={formData.age}
-                onChange={(e) => handleInputChange('age', e.target.value)}
-                className={errors.age ? 'border-red-500' : ''}
-                disabled={loading}
-                min="13"
-                max="100"
-              />
-              {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="height">Height (cm)</Label>
-                <Input
-                  id="height"
-                  type="number"
-                  data-testid="height-input"
-                  value={formData.height}
-                  onChange={(e) => handleInputChange('height', e.target.value)}
-                  className={errors.height ? 'border-red-500' : ''}
-                  disabled={loading}
-                  min="100"
-                  max="250"
-                  step="0.1"
-                />
-                {errors.height && <p className="text-red-500 text-sm mt-1">{errors.height}</p>}
+              {/* Physical Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                  <input
+                    type="number"
+                    placeholder="25"
+                    value={formData.age}
+                    onChange={(e) => handleInputChange('age', e.target.value)}
+                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent ${errors.age ? 'border-red-500' : ''}`}
+                    disabled={loading}
+                  />
+                  {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                  <input
+                    type="number"
+                    placeholder="175"
+                    value={formData.height}
+                    onChange={(e) => handleInputChange('height', e.target.value)}
+                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent ${errors.height ? 'border-red-500' : ''}`}
+                    disabled={loading}
+                  />
+                  {errors.height && <p className="text-red-500 text-xs mt-1">{errors.height}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                  <input
+                    type="number"
+                    placeholder="75"
+                    value={formData.weight}
+                    onChange={(e) => handleInputChange('weight', e.target.value)}
+                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent ${errors.weight ? 'border-red-500' : ''}`}
+                    disabled={loading}
+                  />
+                  {errors.weight && <p className="text-red-500 text-xs mt-1">{errors.weight}</p>}
+                </div>
               </div>
               
-              <div>
-                <Label htmlFor="weight">Weight (kg)</Label>
-                <Input
-                  id="weight"
-                  type="number"
-                  data-testid="weight-input"
-                  value={formData.weight}
-                  onChange={(e) => handleInputChange('weight', e.target.value)}
-                  className={errors.weight ? 'border-red-500' : ''}
-                  disabled={loading}
-                  min="30"
-                  max="300"
-                  step="0.1"
-                />
-                {errors.weight && <p className="text-red-500 text-sm mt-1">{errors.weight}</p>}
+              {/* Dropdowns */}
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                  <div className="relative">
+                    <select
+                      value={formData.gender}
+                      onChange={(e) => handleInputChange('gender', e.target.value)}
+                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent appearance-none bg-white ${errors.gender ? 'border-red-500' : ''}`}
+                      disabled={loading}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Rest Day</label>
+                  <div className="relative">
+                    <select
+                      value={formData.rest_day}
+                      onChange={(e) => handleInputChange('rest_day', e.target.value)}
+                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-transparent appearance-none bg-white ${errors.rest_day ? 'border-red-500' : ''}`}
+                      disabled={loading}
+                    >
+                      <option value="">Select Rest Day</option>
+                      <option value="0">Sunday</option>
+                      <option value="1">Monday</option>
+                      <option value="2">Tuesday</option>
+                      <option value="3">Wednesday</option>
+                      <option value="4">Thursday</option>
+                      <option value="5">Friday</option>
+                      <option value="6">Saturday</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.rest_day && <p className="text-red-500 text-xs mt-1">{errors.rest_day}</p>}
+                </div>
               </div>
-            </div>
 
-            <div>
-              <Label htmlFor="gender">Gender</Label>
-              <select 
-                value={formData.gender} 
-                onChange={(e) => handleInputChange('gender', e.target.value)}
-                disabled={loading}
-                className={`w-full px-3 py-2 border rounded-md bg-white ${errors.gender ? 'border-red-500' : 'border-gray-300'}`}
-                data-testid="gender-select"
-              >
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-              {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender}</p>}
-            </div>
-
-            <div>
-              <Label htmlFor="rest_day">Preferred Rest Day</Label>
-              <select 
-                value={formData.rest_day} 
-                onChange={(e) => handleInputChange('rest_day', e.target.value)}
-                disabled={loading}
-                className={`w-full px-3 py-2 border rounded-md bg-white ${errors.rest_day ? 'border-red-500' : 'border-gray-300'}`}
-                data-testid="rest-day-select"
-              >
-                <option value="">Choose your rest day</option>
-                <option value="0">Sunday</option>
-                <option value="1">Monday</option>
-                <option value="2">Tuesday</option>
-                <option value="3">Wednesday</option>
-                <option value="4">Thursday</option>
-                <option value="5">Friday</option>
-                <option value="6">Saturday</option>
-              </select>
-              {errors.rest_day && <p className="text-red-500 text-sm mt-1">{errors.rest_day}</p>}
-            </div>
-
-            {errors.submit && (
-              <p className="text-red-500 text-sm text-center">{errors.submit}</p>
-            )}
-
-              <Button 
+              <button 
                 type="submit" 
-                className="w-full bg-black hover:bg-gray-800"
-                data-testid="continue-btn"
+                className="w-full bg-gray-800 hover:bg-gray-900 text-white py-4 px-6 rounded-xl font-medium transition-colors disabled:opacity-50"
                 disabled={loading}
               >
-                Continue to Verification
-              </Button>
+                {loading ? 'Creating Profile...' : 'Create Profile'}
+              </button>
             </form>
           )}
 
